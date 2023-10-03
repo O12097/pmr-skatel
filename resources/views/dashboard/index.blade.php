@@ -11,7 +11,6 @@
 <body>
     <h1>DASHBOARD</h1>
         <marquee behavior="" direction="">Anda sedang berada di halaman dashboard</marquee>
-
         <button><a href="/logout">Log out</a></button>
 </body>
 </html>
