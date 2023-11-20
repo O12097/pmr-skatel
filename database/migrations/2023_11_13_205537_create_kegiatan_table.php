@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pmr', function (Blueprint $table) {
-            $table->integer('id_user')->primary();
-            $table->string('email');
-            $table->string('password');
-        });
+        // Schema::create('kegiatan', function (Blueprint $table) {
+        //     $table->integerIncrements('id_kegiatan')->primary();
+        //     $table->string('nis', 15);
+        //     $table->string('nama_kegiatan', 50);
+        //     $table->string('tautan_dokumentasi');
+        // });
     }
 
     /**
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pmr');
+        Schema::dropIfExists('kegiatan');
     }
 };

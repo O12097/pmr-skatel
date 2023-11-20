@@ -1,3 +1,6 @@
+@extends('modules.master')
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Log in page</title>
     <link rel="icon" href="{{ asset('/images/logo-pmr.png') }}" type="image/png">
-    @extends('modules.master')
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,11 +42,249 @@
         #showPass {
             cursor: pointer;
         }
+
+        .alert-message {
+            line-height: 20px;
+            font-size: 15px;
+            padding-bottom: 12px;
+        }
+
+        .cf,
+        .alertt {
+            zoom: 1;
+        }
+
+        .cf:before,
+        .alertt:before,
+        .cf:after,
+        .alertt:after {
+            display: table;
+            content: "";
+            line-height: 0;
+        }
+
+        .cf:after,
+        .alertt:after {
+            clear: both;
+        }
+
+        #alerts {
+            width: 400px;
+            top: 12px;
+            right: 50px;
+            position: fixed;
+            z-index: 9999;
+            list-style: none;
+        }
+
+        .alertt {
+            width: 100%;
+            margin-bottom: 8px;
+            display: block;
+            position: relative;
+            border-left: 4px solid;
+            right: -50px;
+            opacity: 0;
+            line-height: 1;
+            padding: 0;
+            transition: right 400ms, opacity 400ms, line-height 300ms 100ms,
+                padding 300ms 100ms;
+            display: table;
+        }
+
+        .alertt:hover {
+            cursor: pointer;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .open {
+            right: 0;
+            opacity: 1;
+            line-height: 2;
+            padding: 3px 15px;
+            transition: line-height 200ms, padding 200ms, right 350ms 200ms,
+                opacity 350ms 200ms;
+        }
+
+        .alert-title {
+            font-weight: bold;
+        }
+
+        .alert-block {
+            width: 80%;
+            width: -webkit-calc(100% - 10px);
+            width: calc(100% - 10px);
+            text-align: left;
+        }
+
+        .alert-block em,
+        .alert-block small {
+            font-size: 0.75em;
+            opacity: 0.75;
+            display: block;
+        }
+
+        .alertt i {
+            font-size: 2em;
+            width: 1.5em;
+            max-height: 48px;
+            top: 50%;
+            margin-top: -12px;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .alert-success {
+            color: #fff;
+            border-color: #146200;
+            background-color: #1b8700;
+        }
+
+        .alert-error {
+            --tw-bg-opacity: 1;
+            color: #fff;
+            border-color: rgb(185 28 28 / var(--tw-bg-opacity));
+            background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+        }
     </style>
 
 </head>
 
 <body class=" bg-neutral-100">
+
+    @if (session('notLoginPage'))
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script id="rendered-js">
+            var Alert = undefined;
+
+            (function(Alert) {
+                var alert, error, trash, info, success, warning, _container;
+                info = function(message, title, options) {
+                    return alert("info", message, title, "fa fa-info-circle", options);
+                };
+                warning = function(message, title, options) {
+                    return alert("warning", message, title, "fa fa-warning", options);
+                };
+                error = function(message, title, options) {
+                    return alert(
+                        "error",
+                        message,
+                        title,
+                        "fa fa-exclamation-circle",
+                        options
+                    );
+                };
+
+                trash = function(message, title, options) {
+                    return alert("trash", message, title, "fa fa-trash-o", options);
+                };
+
+                success = function(message, title, options) {
+                    return alert(
+                        "success",
+                        message,
+                        title,
+                        "fa fa-check-circle",
+                        options
+                    );
+                };
+                alert = function(type, message, title, icon, options) {
+                    var alertElem,
+                        messageElem,
+                        titleElem,
+                        iconElem,
+                        innerElem,
+                        _container;
+                    if (typeof options === "undefined") {
+                        options = {};
+                    }
+                    options = $.extend({}, Alert.defaults, options);
+                    if (!_container) {
+                        _container = $("#alerts");
+                        if (_container.length === 0) {
+                            _container = $("<ul>").attr("id", "alerts").appendTo($("body"));
+                        }
+                    }
+                    if (options.width) {
+                        _container.css({
+                            width: options.width,
+                        });
+                    }
+                    alertElem = $("<li>")
+                        .addClass("alertt")
+                        .addClass("alert-" + type);
+                    setTimeout(function() {
+                        alertElem.addClass("open");
+                    }, 1);
+                    if (icon) {
+                        iconElem = $("<i>").addClass(icon);
+                        alertElem.append(iconElem);
+                    }
+                    innerElem = $("<div>").addClass("alert-block");
+                    //innerElem = $("<i>").addClass("fa fa-times");
+                    alertElem.append(innerElem);
+                    if (title) {
+                        titleElem = $("<div>").addClass("alert-title").append(title);
+                        innerElem.append(titleElem);
+                    }
+                    if (message) {
+                        messageElem = $("<div>").addClass("alert-message").append(message);
+                        //innerElem.append("<i class="fa fa-times"></i>");
+                        innerElem.append(messageElem);
+                        //innerElem.append("<em>Click to Dismiss</em>");
+                        //      innerElemc = $("<i>").addClass("fa fa-times");
+                    }
+                    if (options.displayDuration > 0) {
+                        setTimeout(function() {
+                            leave();
+                        }, options.displayDuration);
+                    } else {
+                        innerElem.append("<em>Click to Dismiss</em>");
+                    }
+                    alertElem.on("click", function() {
+                        leave();
+                    });
+
+                    function leave() {
+                        alertElem.removeClass("open");
+                        alertElem.one(
+                            "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
+                            function() {
+                                return alertElem.remove();
+                            }
+                        );
+                    }
+                    return _container.prepend(alertElem);
+                };
+                Alert.defaults = {
+                    width: "",
+                    icon: "",
+                    displayDuration: 3000,
+                    pos: "",
+                };
+
+                Alert.info = info;
+                Alert.warning = warning;
+                Alert.error = error;
+                Alert.trash = trash;
+                Alert.success = success;
+                return (_container = void 0);
+            })(Alert || (Alert = {}));
+
+            this.Alert = Alert;
+
+            $("#test").on("click", function() {
+                Alert.info("Message");
+            });
+            $(document).ready(function() {
+                Alert.error('{{ session('notLoginPage') }}', 'Peringatan', {
+                    displayDuration: 3000
+                });
+            });
+        </script>
+    @endif
+
+
     <div class="w-[914px] h-[580px] bg-white rounded-2xl shadow m-auto mt-32">
 
         {{-- RIGHT SECTION --}}
@@ -56,7 +296,7 @@
                 src="{{ asset('images/logo-pmr.png') }}" />
         </a>
 
-        {{-- ALERT GAGAL SECTION --}}
+        {{-- ALERT EMAIL/PASSWORD INCORRECT SECTION --}}
         <div class="w-[333px] h-[252px] left-[1025px] top-[333px] absolute">
             @if (Session::has('alert'))
                 <div class="alert alert-danger transition ease-in delay-50">
@@ -70,7 +310,7 @@
                 </div>
             @endif
         </div>
-        {{-- END ALERT GAGAL SECTION --}}
+        {{-- END ALERT EMAIL/PASSWORD INCORRECT SECTION --}}
 
         <div class="w-[333px] h-[252px] left-[1025px] top-[383px] absolute">
 
@@ -107,9 +347,12 @@
 
         {{-- END RIGHT SECTION --}}
 
-        {{-- LEFT SECTION --}}
-        <img class="w-[387px] h-[377px] left-[530px] top-[235px] absolute" src="images/skatel-assets.png" />
-        {{-- END LEFT SECTION --}}
+
+    </div>
+
+    {{-- LEFT SECTION --}}
+    <img class="w-[387px] h-[377px] left-[530px] top-[235px] absolute" src="images/skatel-assets.png" />
+    {{-- END LEFT SECTION --}}
 
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 201" fill="none">

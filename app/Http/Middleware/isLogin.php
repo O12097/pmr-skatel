@@ -19,7 +19,6 @@ class isLogin
         if (Auth::check()) {
             return $next($request);
         }
-        return redirect('login'); 
-        //sehabis di arahin ke halaman log in, tambahkan alert 'Mohon log in terlebih dahulu', di line ini
+        return redirect('login')->with('notLoginPage', 'Mohon lakukan log in terlebih dahulu!');
     }
 }

@@ -42,7 +42,6 @@
         }
     </style>
 
-
 </head>
 
 <body class=" bg-white">
@@ -56,10 +55,12 @@
         <div
             class="w-[871.90px] h-[1200.32px] left-[-50px] top-[87.65px] absolute origin-top-left rotate-[-7.44deg] bg-red-600">
         </div>
-        <div
-            class="w-auto h-[60.36px] px-[50px] py-3.5 left-[162.73px] top-[635.70px] absolute bg-red-700 rounded-[10px] shadow justify-center items-center gap-2.5 inline-flex">
-            <div class="text-stone-50 text-2xl font-bold font-['Inria Sans']">DAFTAR SEKARANG</div>
-        </div>
+        <a href="/daftar">
+            <div
+                class="w-auto h-[60.36px] px-[50px] py-3.5 left-[162.73px] top-[635.70px] absolute bg-red-700 rounded-[10px] shadow justify-center items-center gap-2.5 inline-flex">
+                <div class="text-stone-50 text-2xl font-bold font-['Inria Sans']">DAFTAR SEKARANG</div>
+            </div>
+        </a>
     </div>
     <h1
         class="w-[672px] h-[146.03px] left-[58px] top-[274.21px] absolute text-white text-[40px] font-bold font-['Inria Sans']">
@@ -67,11 +68,16 @@
     <div class="left-[42px] top-[25.11px] absolute justify-center items-center gap-[1455px] inline-flex">
         <img class="w-[66px] h-[70.03px]" src="{{ asset('images/white_logo-pmr.png') }}" />
         <div class="self-stretch justify-start items-center gap-[61px] inline-flex">
-            <div class="w-[86px] h-[26.27px] text-red-600 text-xl font-bold font-['Inria Sans']">PRESENSI</div>
-            <div
-                class="w-[150px] h-[39.53px] px-[45px] py-3.5 transition ease-in-out delay-50 bg-red-600 hover:bg-red-700 duration-300 rounded-[10px] shadow justify-center items-center gap-2.5 flex">
-                <a href="/login" class="w-[65px] h-[26px] text-white text-xl font-bold font-['Inria Sans']">MASUK</a>
-            </div>
+            <a href="/presensi">
+                <div class="w-[86px] h-[26.27px] text-red-600 text-xl font-bold font-['Inria Sans']">PRESENSI</div>
+            </a>
+
+            <a href="/login">
+                <div
+                    class="w-[150px] h-[39.53px] px-[45px] py-3.5 transition ease-in-out delay-50 bg-red-600 hover:bg-red-700 duration-300 rounded-[10px] shadow justify-center items-center gap-2.5 flex">
+                    <div class="w-[65px] h-[26px] text-white text-xl font-bold font-['Inria Sans']">MASUK</div>
+                </div>
+            </a>
         </div>
     </div>
 </body>

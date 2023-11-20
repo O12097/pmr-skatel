@@ -37,8 +37,9 @@ class SessionController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // kalau login berhasil, arahkan pengguna ke halaman dashboard
-            return redirect()->intended('/dashboard')->with('success', 'BERHASIL LOG IN');
+            // kalau login berhasil, muncul alert success kemudian pengguna di arahkan ke halaman dashboard
+            Session::flash('successLogin', 'Anda telah berhasil log in!');
+            return redirect()->intended('/dashboard');
         } else {
             // tapi kalau login gagal, tampilkan pesan alert melalui session flash message
             Session::flash('alert', 'Mohon isi data terlebih dahulu dengan benar dan lengkap!');

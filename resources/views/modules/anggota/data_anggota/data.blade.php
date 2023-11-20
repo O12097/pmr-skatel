@@ -1,17 +1,38 @@
 @extends('modules.master')
 @extends('modules.partials')
 
-@section('title', 'Data Anggota')
-<style>
-    .centered-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-</style>
 @section('content')
-    <p class="centered-text text-neutral-400 text-xl font-['Inria Sans']">Data tidak tersedia</p>
+
+    @isset($dataSiswa)
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>NIS</th>
+                    <th>Nama Siswa</th>
+                    <th>Kelas</th>
+                    <th>Jurusan</th>
+                    <th>Email</th>
+                    <th>No Telp</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($dataSiswa as $item)
+                    <tr>
+                        <td>{{ $item->nis }}</td>
+                        <td>{{ $item->nama_siswa }}</td>
+                        <td>{{ $item->kelas }}</td>
+                        <td>{{ $item->jurusan }}</td>
+                        <td>{{ $item->email }}</td>
+                        <td>{{ $item->no_telp }}</td>
+                        <td>{{ $item->status }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <p>Data tidak ditemukan</p>
+    @endisset
+
 @endsection
