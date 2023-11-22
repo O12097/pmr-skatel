@@ -1,4 +1,4 @@
-@extends('modules.master')
+@extends('modules.preloader')
 @extends('modules.partials')
 
 @section('title', 'Dashboard')
@@ -12,8 +12,7 @@
 
 @section('content')
     <section class="section-content">
-        <div class="px-[150px]">
-            <div class="w-full h-[821px] relative">
+            <div class="w-full h-[770px] pt-[50px] relative">
                 <div class="w-[376.41px] h-[458.83px] left-[836.21px] top-[362.17px] absolute">
                     <div class="w-[376.41px] h-[458.83px] left-0 top-0 absolute bg-white rounded-[20px] shadow"></div>
                     <h2
@@ -101,6 +100,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 @endsection

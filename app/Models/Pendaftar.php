@@ -20,6 +20,7 @@ class Pendaftar extends Model
         'kelas',
         'jurusan',
         'no_telp',
+        'aksi',
     ];
 
     public function siswa(){

@@ -1,4 +1,4 @@
-@extends('modules.master')
+@extends('modules.preloader')
 @extends('modules.partials')
 
 @section('title', 'Pendaftar')
@@ -13,5 +13,33 @@
     }
 </style>
 @section('content')
-    <p class="centered-text text-neutral-400 text-xl  font-['Inria Sans']">Data tidak tersedia</p>
+    @isset($dataPendaftar) --}}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>NIS</th>
+                    <th>Nama Siswa</th>
+                    <th>Kelas</th>
+                    <th>Jurusan</th>
+                    <th>Email</th>
+                    <th>No Telp</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($dataPendaftar as $item)
+                    <tr>
+                        <td>{{ $item->nis }}</td>
+                        <td>{{ $item->nama_siswa }}</td>
+                        <td>{{ $item->kelas }}</td>
+                        <td>{{ $item->jurusan }}</td>
+                        <td>{{ $item->email }}</td>
+                        <td>{{ $item->no_telp }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @else
+        <p>Data tidak ditemukan</p>
+    @endisset
 @endsection

@@ -319,6 +319,15 @@
             -moz-appearance: none;
         }
 
+        select:invalid {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        option {
+            color: black;
+        }
+
+
         #showPass {
             cursor: pointer;
         }
@@ -366,6 +375,10 @@
 
         .section-content {
             width: calc(100% - 200px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
         }
 
         .sidebar.show+.content-container {
@@ -888,36 +901,14 @@
     });
 </script>
 
-<script>
-    function confirmLogout() {
-        // Tampilkan alert konfirmasi
-        var isConfirmed = confirm("Apakah Anda yakin ingin keluar?");
-
-        // Jika dikonfirmasi, arahkan pengguna ke /logout
-        if (isConfirmed) {
-            window.location.href = "/logout";
-        }
-    }
-</script>
-
-<script>
-    $(function() {
-        $('a#logout').click(function() {
-            if (confirm('Are you sure to logout')) {
-                return true;
-            }
-
-            return false;
-        });
-    });
-</script>
-
-<script>
+{{-- <script>
     function logoutConfirm() {
-        if (confirm("Apakah Anda yakin ingin keluar?")) {
+        var confirmation = confirm("Apakah Anda yakin ingin keluar?");
+        if (confirmation) {
             location.href = '/logout';
         }
     }
-</script>
+</script> --}}
+
 
 </html>

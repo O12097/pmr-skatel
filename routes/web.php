@@ -17,7 +17,6 @@ use App\Http\Controllers\DashboardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
     return view('/landing/index');
 });
@@ -35,15 +34,15 @@ Route::post('/login', 'Auth\SessionController@login')->name('login');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('isLogin');
 
 
-// MENU ANGGOTA
+// PENDAFTARAN
 Route::get('/anggota/data', [AnggotaController::class, 'data'])->name('anggota.data')->middleware('isLogin');
 Route::get('/anggota/pendaftar', [AnggotaController::class, 'pendaftar'])->name('anggota.pendaftar')->middleware('isLogin');
-Route::get('/daftar', [AnggotaController::class, 'formPendaftaran'])->name('anggota.pendaftar.form');
+Route::get('/daftar/form', [AnggotaController::class, 'formPendaftaran'])->name('anggota.pendaftar.form');
 // NYIMPAN DATA
 Route::post('/daftar', [AnggotaController::class, 'submitPendaftaran'])->name('anggota.pendaftaran.submit');
 
 
-// MENU KEGIATAN
+// KEGIATAN
 Route::get('/kegiatan/dokumentasi', [KegiatanController::class, 'dokumentasi'])->name('kegiatan.dokumentasi')->middleware('isLogin');
 Route::get('/kegiatan/kalender', [KegiatanController::class, 'kalender'])->name('kegiatan.kalender')->middleware('isLogin');
 
@@ -54,8 +53,7 @@ Route::get('/landing', [LandingController::class, 'index']);
 
 // PRESENSI
 Route::get('/anggota/presensi', [AnggotaController::class, 'presensi'])->name('anggota.presensi')->middleware('isLogin');
-// FORM PAGE
 Route::get('/presensi', [AnggotaController::class, 'formPresensi'])->name('anggota.presensi.form');
 // NYIMPAN DATA
-Route::post('/presensi', [AnggotaController::class, 'submitPresensi'])->name('anggota.presensi.submit');
+Route::post('/presensi/proses', [AnggotaController::class, 'submitPresensi'])->name('anggota.presensi.submit');
 

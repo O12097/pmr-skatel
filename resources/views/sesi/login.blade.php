@@ -1,4 +1,4 @@
-@extends('modules.master')
+@extends('modules.preloader')
 
 
 <!DOCTYPE html>
@@ -288,13 +288,13 @@
     <div class="w-[914px] h-[580px] bg-white rounded-2xl shadow m-auto mt-32">
 
         {{-- RIGHT SECTION --}}
-        <a href="/" class="w-[383px] h-[102px] left-[998px] top-[204px] absolute">
+        <div class="w-[383px] h-[102px] left-[998px] top-[204px] absolute">
             <div
                 class="logo-pmr w-[383px] h-[27px] left-0 top-[75px] absolute text-center text-black text-2xl font-bold font-['Inria Sans']">
                 PALANG MERAH REMAJA</div>
             <img class="w-[73.58px] h-[75.43px] left-[149.58px] top-0 absolute"
                 src="{{ asset('images/logo-pmr.png') }}" />
-        </a>
+        </div>
 
         {{-- ALERT EMAIL/PASSWORD INCORRECT SECTION --}}
         <div class="w-[333px] h-[252px] left-[1025px] top-[333px] absolute">
@@ -346,7 +346,8 @@
         </div>
 
         {{-- END RIGHT SECTION --}}
-
+        <div class="KembaliKeHalamanLanding left-[1055px] top-[605px] absolute text-neutral-700 text-xm font-normal font-['Inria Sans']">Kembali ke halaman landing?
+  <span class=" text-red-700"><a href="/">Klik di sini</a></span> </div>
 
     </div>
 

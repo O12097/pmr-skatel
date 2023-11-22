@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->integerIncrements('id_user')->primary();
+        // Schema::create('users', function (Blueprint $table) {
+        //     $table->integerIncrements('id_user')->primary();
 
-            $table->string('nis', 15)->nullable();
-            $table->foreign('nis', 15)->references('nis')->on('siswa');
+        //     $table->string('nis', 15)->nullable();
+        //     $table->foreign('nis', 15)->references('nis')->on('siswa');
 
-            $table->string('email', 50);
-            $table->string('password', 100);
-            $table->enum('peran_pengguna', ['pengelola', 'anggota']);
-        });
+        //     $table->string('email', 50);
+        //     $table->string('password', 100);
+        // });
     }
 
     /**

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('kegiatan', function (Blueprint $table) {
-        //     $table->integerIncrements('id_kegiatan')->primary();
-        //     $table->string('nama_kegiatan', 50);
-        //     $table->string('tautan_dokumentasi');
-        // });
+        Schema::create('kelas', function (Blueprint $table) {
+            $table->integerIncrements('id_kelas');
+            $table->string('kelas');
+            $table->enum('status', ['on', 'off']);
+        });
     }
 
     /**
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kegiatan');
+        Schema::dropIfExists('kelas');
     }
 };

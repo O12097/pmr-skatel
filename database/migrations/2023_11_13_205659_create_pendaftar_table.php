@@ -19,6 +19,7 @@ return new class extends Migration
         //     $table->enum('kelas', ['X', 'XI', 'XII']);
         //     $table->enum('jurusan', ['RPL', 'DKV', 'TJKT', 'TJAT', 'TKJ', 'ANIM']);
         //     $table->string('no_telp', 15);
+        //     $table->enum('aksi', ['terima', 'tidak']);
         // });
     }
 

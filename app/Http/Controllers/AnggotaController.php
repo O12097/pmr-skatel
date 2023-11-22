@@ -12,8 +12,7 @@ class AnggotaController extends Controller
     public function data()
     {
 
-        $dataSiswa = Siswa::all();
-        return view('modules.anggota.data_anggota.data',  ['dataSiswa' => $dataSiswa]);
+        return view('modules.anggota.data_anggota.data');
     }
     public function presensi()
     {
@@ -36,14 +35,6 @@ class AnggotaController extends Controller
 
 
 
-
-    public function getDataAnggota()
-    {
-        $dataSiswa = Siswa::all();
-        dd($dataSiswa); 
-
-        return view('modules.anggota.data_anggota.data', ['dataSiswa' => $dataSiswa]); 
-    }
 
 
     // METHOD VALIDASI FORM PRESENSI
@@ -76,10 +67,10 @@ class AnggotaController extends Controller
     {
         $nis = $request->input('nis');
 
-        // cek nis yang diinputkan sudah terdaftar di table siswa
+        // Cek NIS di tabel siswa
         $siswa = Siswa::where('nis', $nis)->first();
 
-        // kalau nis belum terdaftar, masukin datanya ke table siswa
+        // Jika NIS belum terdaftar di tabel siswa, masukkan data ke tabel siswa
         if (!$siswa) {
             Siswa::create([
                 'nis' => $nis,
@@ -91,12 +82,10 @@ class AnggotaController extends Controller
             ]);
         }
 
-        // CEK NIS sudah terdaftar di tabel pendaftar
         $nisTerdaftar = Pendaftar::where('nis', $nis)->exists();
 
-        // Jika NIS sudah terdaftar, berikan pesan kesalahan
-        if ($nisTerdaftar) {
-            return redirect()->back()->with('nisSudahTerdaftar', 'NIS telah terdaftar. Satu NIS hanya dapat mendaftar satu kali.');
+        if($nisTerdaftar) {
+            return redirect()->back()->with('nisSudahTerdaftar', 'NIS telah terdaftar. Satu NIS hanya dapat mendaftar satu kali');
         }
 
         // Masukkan data ke dalam tabel pendaftar
@@ -109,8 +98,9 @@ class AnggotaController extends Controller
             'no_telp' => $request->input('no_telp'),
         ]);
 
-        return redirect()->back()->with('daftarBerhasil', 'Data telah dikirim, mohon tunggu informasi selanjutnya.');
+        return redirect()->back()->with('daftarBerhasil', 'Data telah dikirim, mohon tunggu informasi selanjutnya');
     }
+
 }
 
 // DESY: SEMUANYA
