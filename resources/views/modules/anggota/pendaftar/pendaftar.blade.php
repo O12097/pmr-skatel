@@ -13,7 +13,7 @@
     }
 </style>
 @section('content')
-    @isset($dataPendaftar) --}}
+    @isset($dataPendaftar)
         <table border="1">
             <thead>
                 <tr>

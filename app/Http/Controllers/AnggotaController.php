@@ -6,21 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Pendaftar;
 use App\Models\Siswa;
 use App\Models\Presensi;
+use Illuminate\Support\Facades\Redis;
 
 class AnggotaController extends Controller
 {
     public function data()
     {
-
-        return view('modules.anggota.data_anggota.data');
+        $dataSiswa = Siswa::all();
+        return view('modules.anggota.data_anggota.data',  ['dataSiswa' => $dataSiswa]);
     }
     public function presensi()
     {
-        return view('modules.anggota.presensi.presensi');
+        $dataPresensi = Presensi::all();
+        return view('modules.anggota.presensi.presensi',  ['dataPresensi' => $dataPresensi]);
     }
     public function pendaftar()
     {
-        return view('modules.anggota.pendaftar.pendaftar');
+        $dataPendaftar = Pendaftar::all();
+        return view('modules.anggota.pendaftar.pendaftar',  ['dataPendaftar' => $dataPendaftar]);
     }
 
     //  FORM ROUTE URL SECTION
@@ -41,6 +44,8 @@ class AnggotaController extends Controller
     public function submitPresensi(Request $request)
     {
         $nis = $request->input('nis');
+        $statusPresensi = $request->input('status_presensi');
+        // dd($statusPresensi);
 
         // cek nis yang di inputkan sudah terdaftar di table siswa apa belum
         $siswa = Siswa::where('nis', $nis)->first();
@@ -51,12 +56,18 @@ class AnggotaController extends Controller
 
         // kalau nis terdaftar, masukkin ke table presensi
         Presensi::Create([
-            'nis' => $nis,
+            'nis' => (string)$nis,
             'tanggal_presensi' => now(),
             'status_presensi' => $request->input('status_presensi'),
         ]);
 
         return redirect()->back()->with('presensiBerhasil', 'Presensi telah dikirim!');
+    }
+    public function cekNISPresensi(Request $request) {
+        $nisPresensi = $request->input('nis');
+        $presensiSiswa = Siswa::where('nis', $nisPresensi)->exists();
+
+        return response()->json(['exists' => $presensiSiswa]);
     }
 
 
@@ -80,11 +91,14 @@ class AnggotaController extends Controller
                 'jurusan' => $request->input('jurusan'),
                 'no_telp' => $request->input('no_telp'),
             ]);
+        } else {
+            // NIS sudah terdaftar, pass the error message to the view
+            return redirect()->back()->with('nisSudahTerdaftar', 'NIS sudah terdaftar. Satu NIS hanya dapat mendaftar satu kali');
         }
 
         $nisTerdaftar = Pendaftar::where('nis', $nis)->exists();
 
-        if($nisTerdaftar) {
+        if ($nisTerdaftar) {
             return redirect()->back()->with('nisSudahTerdaftar', 'NIS telah terdaftar. Satu NIS hanya dapat mendaftar satu kali');
         }
 
@@ -101,6 +115,13 @@ class AnggotaController extends Controller
         return redirect()->back()->with('daftarBerhasil', 'Data telah dikirim, mohon tunggu informasi selanjutnya');
     }
 
+    public function cekNISPendaftar(Request $request)
+    {
+        $nis = $request->input('nis');
+        $siswa = Siswa::where('nis', $nis)->exists();
+
+        return response()->json(['exists' => $siswa]);
+    }
 }
 
 // DESY: SEMUANYA

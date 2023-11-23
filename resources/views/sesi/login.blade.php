@@ -32,7 +32,8 @@
             font-family: 'Inria Sans';
             overflow-y: hidden;
             overflow-x: hidden;
-
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
         form .placeholder {
@@ -341,13 +342,16 @@
 
 
                 <button type="submit" name="submit"
-                    class="w-[332px] h-[45px] px-[131px] py-3.5 left-0 top-[154px] absolute transition ease-in-out delay-50 bg-red-600 hover:bg-red-700 duration-300 rounded-[10px] shadow justify-center items-center gap-2.5 inline-flex text-white text-xl font-bold font-['Inria Sans']">LOGIN</button>
+                    class="w-[332px] h-[45px] px-[131px] py-3.5 left-0 top-[154px] absolute transition ease-in-out delay-50 bg-red-700 hover:bg-red-800 duration-300 rounded-[10px] shadow justify-center items-center gap-2.5 inline-flex text-white text-xl font-bold font-['Inria Sans']">LOGIN</button>
             </form>
         </div>
 
         {{-- END RIGHT SECTION --}}
-        <div class="KembaliKeHalamanLanding left-[1055px] top-[605px] absolute text-neutral-700 text-xm font-normal font-['Inria Sans']">Kembali ke halaman landing?
-  <span class=" text-red-700"><a href="/">Klik di sini</a></span> </div>
+        <div
+            class="KembaliKeHalamanLanding left-[1050px] top-[605px] absolute text-neutral-700 text-xm font-normal font-['Inria Sans']">
+            Kembali ke halaman beranda?
+            <span class=" text-red-700 hover:text-red-800"><a href="/">Klik di sini</a></span>
+        </div>
 
     </div>
 
@@ -359,12 +363,17 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 201" fill="none">
         <path
             d="M-18.3818 25.052C568.009 134.659 999.881 117.078 1440 25.052V201H-18.3818C-18.3818 201 -604.773 -84.5549 -18.3818 25.052Z"
-            fill="#E4262C" />
+            fill="#b91c1c" />
     </svg>
 
 </body>
 
 <script id="rendered-js">
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.style.opacity = 1;
+    });
+
+
     $(document).ready(function() {
         var passwordField = $("#myPass");
         var showIcon = $(".show-icon");

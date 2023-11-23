@@ -306,6 +306,8 @@
             margin: 0;
             padding: 0;
             display: flex;
+            opacity: 0;
+            transition: opacity `s ease-in-out;
 
         }
 
@@ -577,7 +579,6 @@
             {{-- END ALERT JS --}}
         @endif
 
-
         <nav class="sidebar bg-stone-50 w-[325px] h-[1047px] absolute shadow">
             <div class="w-full h-[105.63px] top-[50px] relative">
                 <h1 class="text-center text-black text-2xl font-bold font-InriaSans absolute bottom-0 w-full mb-[25px]">
@@ -721,9 +722,7 @@
                         </div>
                     </div>
                 </div>
-
             </nav>
-
             <div class="content">
                 <section class="section-content">
                     @yield('content')
@@ -900,10 +899,15 @@
         });
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.body.style.opacity = 1;
+    });
+</script>
 
 {{-- <script>
     function logoutConfirm() {
-        var confirmation = confirm("Apakah Anda yakin ingin keluar?");
+        var confirmation = confirm("Apakah Anda yakin ingin keluar?"); 
         if (confirmation) {
             location.href = '/logout';
         }
