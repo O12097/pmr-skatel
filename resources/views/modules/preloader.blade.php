@@ -3,20 +3,8 @@
 
 <head>
     <style>
-        #splash-loading {
-            /* position: fixed;
-            top: 45%;
-            left: 50%; */
-            /* transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            animation: rotate 2s linear infinite; */
-            /* z-index: 9999;
-            background-position: center; */
-        }
-
         @keyframes rotate {
-            0% {
+            0% {    
                 transform: translate(-50%, -50%) rotate(0deg);
             }
 

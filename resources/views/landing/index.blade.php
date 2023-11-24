@@ -59,11 +59,11 @@
             class="w-[851.90px] h-[1951.32px] left-[57.19px] top-[80.11px] absolute origin-top-left rotate-[-7.44deg] bg-white bg-opacity-50">
         </div>
         <div
-            class="w-[871.90px] h-[1200.32px] left-[-50px] top-[87.65px] absolute origin-top-left rotate-[-7.44deg] bg-red-700">
+            class="w-[871.90px] h-[1200.32px] left-[-50px] top-[87.65px] absolute origin-top-left rotate-[-7.44deg] bg-red-600">
         </div>
         <a href="/daftar/form">
             <div
-                class="w-auto h-[60.36px] px-[50px] py-3.5 left-[162.73px] top-[635.70px] absolute bg-red-800 hover:bg-red-900 duration-300 rounded-[10px] shadow justify-center items-center gap-2.5 inline-flex">
+                class="w-auto h-[60.36px] px-[50px] py-3.5 left-[162.73px] top-[635.70px] absolute bg-red-700 hover:bg-red-800 duration-300 rounded-[10px] shadow justify-center items-center gap-2.5 inline-flex">
                 <div class="text-stone-50 text-2xl font-bold font-['Inria Sans']">DAFTAR SEKARANG</div>
             </div>
         </a>
@@ -72,16 +72,16 @@
     <h1
         class="w-[672px] h-[146.03px] left-[58px] top-[274.21px] absolute text-white text-[40px] font-bold font-['Inria Sans']">
         Dapatkan pengalaman<br />berharga dengan bergabung<br />bersama kami!</h1>
-    <div class="left-[42px] top-[25.11px] absolute justify-center items-center gap-[1455px] inline-flex">
-        <img class="w-[66px] h-[70.03px]" src="{{ asset('images/white_logo-pmr.png') }}" />
+    <div class="left-[850px] top-[25.11px] absolute justify-center items-center gap-[655px] inline-flex">
+        <img class="w-[66px] h-[66.03px]" src="{{ asset('images/logo-pmr.png') }}" />
         <div class="w-[172px] h-[71px] left-[110px] top-[0.89px] absolute">
             <a href="https://www.smktelkom-bjb.sch.id/web/"><img class="w-[55px] h-16 left-0 top-[5px] absolute" src="{{ asset('images/skatel_logo.png') }}" /></a>
-            <a href="https://ypt.or.id/"><img class="w-[110px] h-[71px] left-[79px] top-0 absolute" src="{{ asset('images/ypt-logo.png') }}" /></a>
+            <a href="https://ypt.or.id/"><img class="w-[110px] h-[71px] left-[90px] top-0 absolute" src="{{ asset('images/ypt-logo.png') }}" /></a>
         </div>
         <div class="self-stretch justify-start items-center gap-[61px] inline-flex">
             <a href="/presensi">
                 <div
-                    class="w-[86px] h-[26.27px] text-red-600 hover:text-red-800 duration-300 text-xl font-bold font-['Inria Sans']">
+                    class="w-[86px] h-[26.27px] text-red-600 hover:text-red-700 duration-300 text-xl font-bold font-['Inria Sans']">
                     PRESENSI</div>
             </a>
 

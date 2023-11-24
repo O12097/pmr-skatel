@@ -643,12 +643,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="mb-3 has-submenu relative" id="kegiatan">
+                    <li class="mb-3 has-submenu relative" id="konfigurasi-data">
                         <a href="#"
                             class="sidebar-dropdown-toggle flex items-center py-2 px-4 text-neutral-700 text-[20px] hover:bg-neutral-100 transition duration-300 rounded">
-                            <iconify-icon icon="solar:calendar-linear" class="mr-2" height="25"
+                            <iconify-icon icon="fluent-mdl2:data-management-settings" class="mr-2" height="25"
                                 width="25"></iconify-icon>
-                            Kegiatan
+                            Konfigurasi Data
                             <span class="absolute right-2 top-1/2 transform -translate-y-1/2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 i-drop-down"
                                     data-icon="carbon:arrow-down" fill="none" viewBox="0 0 24 24"
@@ -669,18 +669,26 @@
                         </a>
                         <ul class="ml-8 hidden sidebar-submenu">
                             <li class="mb-2">
-                                <a href="{{ route('kegiatan.dokumentasi') }}"
+                                <a href="{{ route('konfigurasi.jurusan') }}"
                                     class="text-neutral-700 hover:text-red-700" id="submenu-kegiatan-dokumentasi">
-                                    Dokumentasi
+                                    Data Jurusan
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('kegiatan.kalender') }}" class="text-neutral-700 hover:text-red-700"
+                                <a href="{{ route('konfigurasi.kelas') }}" class="text-neutral-700 hover:text-red-700"
                                     id="submenu-kegiatan-kalender">
-                                    Kalender
+                                    Data Kelas
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="mb-3 active" id="dokumentasi">
+                        <a href="{{ route('kegiatan.dokumentasi') }}"
+                            class="sidebar-dropdown-toggle flex items-center py-2 px-4 text-neutral-700 text-[20px] hover:bg-neutral-100 transition duration-300 rounded">
+                            <iconify-icon icon="ion:document-outline" class="mr-2" height="25"
+                                width="25"></iconify-icon>
+                            Dokumentasi Kegiatan
+                        </a>
                     </li>
 
                     <li class="absolute bottom-0 left-0 right-0">
@@ -885,7 +893,7 @@
             if (path.includes('/anggota/data') || path.includes('/anggota/presensi') || path.includes(
                     '/anggota/pendaftar')) {
                 pageTitle = 'ANGGOTA';
-            } else if (path.includes('/kegiatan/dokumentasi') || path.includes('/kegiatan/kalender')) {
+            } else if (path.includes('/kegiatan/dokumentasi')) {
                 pageTitle = 'KEGIATAN';
             }
 

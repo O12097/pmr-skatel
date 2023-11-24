@@ -44,7 +44,7 @@ class AnggotaController extends Controller
     public function submitPresensi(Request $request)
     {
         $nis = $request->input('nis');
-        $statusPresensi = $request->input('status_presensi');
+        // $statusPresensi = $request->input('status_presensi');
         // dd($statusPresensi);
 
         // cek nis yang di inputkan sudah terdaftar di table siswa apa belum
