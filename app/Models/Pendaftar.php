@@ -17,14 +17,25 @@ class Pendaftar extends Model
         'nis',
         'email',
         'nama_siswa',
-        'kelas',
-        'jurusan',
+        'id_jurusan',
+        'id_kelas',
         'no_telp',
         'aksi',
+        'status',
     ];
 
-    public function siswa(){
+    public function siswa()
+    {
         return $this->belongsTo(Siswa::class, 'nis', 'nis');
     }
-}
 
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_jurusan');
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
+    }
+}

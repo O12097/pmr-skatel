@@ -22,7 +22,6 @@
         rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" />
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -350,10 +349,13 @@
         }
 
         .content-container {
-            flex: 1;
+            flex: auto;
             margin-left: 0;
             transition: margin-left 0.8s ease;
             z-index: 0;
+            /* display: flex; */
+            justify-content: center;
+            align-items: center;
         }
 
         .navbar {
@@ -372,7 +374,7 @@
         .content {
             margin-left: 200px;
             padding: 20px;
-            width: calc(100% - 40px);
+            /* width: calc(100% - 40px); */
         }
 
         .section-content {
@@ -690,6 +692,14 @@
                             Dokumentasi Kegiatan
                         </a>
                     </li>
+                    <li class="mb-3 active" id="dokumentasi">
+                        <a href="{{ route('kelola.akun.index') }}"
+                            class="sidebar-dropdown-toggle flex items-center py-2 px-4 text-neutral-700 text-[20px] hover:bg-neutral-100 transition duration-300 rounded">
+                            <iconify-icon icon="material-symbols:manage-accounts-outline-rounded" class="mr-2"
+                                height="25" width="25"></iconify-icon>
+                            Kelola Akun
+                        </a>
+                    </li>
 
                     <li class="absolute bottom-0 left-0 right-0">
                         <a href="" onclick="logoutConfirm()"
@@ -913,14 +923,6 @@
     });
 </script>
 
-{{-- <script>
-    function logoutConfirm() {
-        var confirmation = confirm("Apakah Anda yakin ingin keluar?"); 
-        if (confirmation) {
-            location.href = '/logout';
-        }
-    }
-</script> --}}
 
 
 </html>

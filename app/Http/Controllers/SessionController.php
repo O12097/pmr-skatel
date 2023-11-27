@@ -45,17 +45,6 @@ class SessionController extends Controller
             Session::flash('alert', 'Mohon isi data terlebih dahulu dengan benar dan lengkap!');
             return redirect()->back(); // terus redirect kembali ke halaman login
         }
-        //INI NANTI BUAT KONDISI ROLE
-            // $id_user = Auth::id();
-
-            // if($id_user) {
-            //     $module = $request->input('module', false);
-            //     $action = $request->input('action', false);
-            //     $mode = $request->input('mode', false);
-            // }else {
-            //     return redirect('login');
-            // }
-        //END KONDISI ROLE
     }
     // END FUNCTION ALERT LOGIN FIXED
 

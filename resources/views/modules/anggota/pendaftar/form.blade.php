@@ -83,9 +83,9 @@
                         class="select-wrapper w-[843px] h-[62px] px-[20px] py-4 left-[89px] top-[349px] absolute bg-white rounded-[15px] border border-zinc-400 justify-center items-center gap-[645px] inline-flex text-xl font-normal font-['Inria Sans']"
                         style="appearance: none;" required>
                         <option value="" disabled selected hidden>Kelas</option>
-                        <option value="X">X</option>
-                        <option value="XI">XI</option>
-                        <option value="XII">XII</option>
+                        @foreach ($dataKelas as $kelas)
+                            <option value="{{ $kelas->kelas }}">{{ $kelas->kelas }}</option>
+                        @endforeach
                     </select>
                     <iconify-icon icon="ep:arrow-down" class="w-[15px] h-[15px] left-[899px] top-[373.50px] absolute"
                         style="color: #444;"></iconify-icon>
@@ -96,12 +96,9 @@
                         class="select-wrapper w-[843px] h-[62px] px-[20px] py-4 left-[89px] top-[449px] absolute bg-white rounded-[15px] border border-zinc-400 justify-center items-center gap-[645px] inline-flex text-xl font-normal font-['Inria Sans']"
                         style="appearance: none;" required>
                         <option value="" disabled selected hidden>Jurusan</option>
-                        <option value="RPL">Rekayasa Perangkat Lunak</option>
-                        <option value="DKV">Desain Komunikasi Visual</option>
-                        <option value="TJKT">Teknik Jaringan Komputer dan Telekomunikasi</option>
-                        <option value="TJAT">Teknik Jaringan Akses Telekomunikasi</option>
-                        <option value="TKJ">Teknik Komputer Jaringan</option>
-                        <option value="ANIM">Animasi</option>
+                        @foreach ($dataJurusan as $jurusan)
+                            <option value="{{ $jurusan->jurusan }}">{{ $jurusan->jurusan }}</option>
+                        @endforeach
                     </select>
                     <iconify-icon icon="ep:arrow-down" class="w-[15px] h-[15px] left-[899px] top-[473.50px] absolute"
                         style="color: #444;"></iconify-icon>

@@ -13,8 +13,9 @@ return new class extends Migration
     {
         // Schema::create('kegiatan', function (Blueprint $table) {
         //     $table->integerIncrements('id_kegiatan')->primary();
-        //     $table->string('nama_kegiatan', 50);
-        //     $table->string('tautan_dokumentasi');
+        //     $table->string('nama_kegiatan', 100);
+        //     $table->string('tautan_dokumentasi')->nullable();
+        //     $table->timestamps();
         // });
     }
 

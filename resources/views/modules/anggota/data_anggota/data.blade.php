@@ -42,7 +42,7 @@
                 @foreach ($dataSiswa as $item)
                     <div class="self-stretch h-[55px] bg-white justify-center items-center gap-2.5 inline-flex">
                         <div class="grow shrink basis-0 text-center text-black text-xl font-normal font-['Inria Sans']">
-                            {{ $item->kelas }}</div>
+                            {{ $item->kelas->kelas }}</div>
                     </div>
                 @endforeach
             </div>
@@ -56,7 +56,7 @@
                 @foreach ($dataSiswa as $item)
                     <div class="self-stretch h-[55px] bg-white justify-center items-center gap-2.5 inline-flex">
                         <div class="grow shrink basis-0 text-center text-black text-xl font-normal font-['Inria Sans']">
-                            {{ $item->jurusan }}</div>
+                            {{ $item->jurusan->jurusan }}</div>
                     </div>
                 @endforeach
             </div>

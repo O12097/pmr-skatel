@@ -16,10 +16,10 @@ return new class extends Migration
         //     $table->string('nis', 15);
         //     $table->string('email', 50);
         //     $table->string('nama_siswa', 50);
-        //     $table->enum('kelas', ['X', 'XI', 'XII']);
-        //     $table->enum('jurusan', ['RPL', 'DKV', 'TJKT', 'TJAT', 'TKJ', 'ANIM']);
+        //     $table->foreignId('id_jurusan')->constrained('jurusan');
+        //     $table->foreignId('id_kelas')->constrained('kelas');
         //     $table->string('no_telp', 15);
-        //     $table->enum('aksi', ['terima', 'tidak']);
+        //     $table->enum('aksi', ['pending', 'terima', 'tidak']);
         // });
     }
 

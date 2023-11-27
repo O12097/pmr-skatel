@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presensi', function (Blueprint $table) {
-            $table->integerIncrements('id_presensi')->primary();
-            $table->foreign('nis')->references('nis', 15)->on('siswa');
-            $table->dateTime('tanggal_presensi');
-            $table->enum('status_presensi', ['hadir', 'izin', 'sakit']);
-        });
+        // Schema::create('presensi', function (Blueprint $table) {
+        //     $table->integerIncrements('id_presensi')->primary();
+        //     $table->string('nis', 15);
+        //     $table->foreign('nis')->references('nis')->on('siswa');
+        //     $table->dateTime('tanggal_presensi');
+        //     $table->enum('status_presensi', ['hadir', 'izin', 'sakit']);
+        // });
     }
 
     /**

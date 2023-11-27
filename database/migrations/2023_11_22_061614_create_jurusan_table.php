@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jurusan', function (Blueprint $table) {
-            $table->integerIncrements('id_jurusan');
-            $table->string('jurusan');
-            $table->enum('status', ['on', 'off']);
-        });
+        // Schema::create('jurusan', function (Blueprint $table) {
+        //     $table->integerIncrements('id_jurusan');
+        //     $table->string('jurusan', 100);
+        //     $table->enum('status', ['on', 'off']);
+        // });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('jurusan');
-    }
+    // public function down(): void
+    // {
+    //     Schema::dropIfExists('jurusan');
+    // }
 };

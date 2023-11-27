@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Pendaftar;
 use App\Models\Siswa;
 use App\Models\Presensi;
-use Illuminate\Support\Facades\Redis;
+use App\Models\Jurusan;
+use App\Models\Kelas;
+use Illuminate\Support\Facades\View;
 
 class AnggotaController extends Controller
 {
@@ -33,7 +35,9 @@ class AnggotaController extends Controller
     }
     public function formPendaftaran()
     {
-        return view('modules.anggota.pendaftar.form');
+        $dataKelas = Kelas::all();
+        $dataJurusan = Jurusan::all();
+        return view('modules.anggota.pendaftar.form', compact('dataKelas', 'dataJurusan'));
     }
 
 
@@ -63,7 +67,8 @@ class AnggotaController extends Controller
 
         return redirect()->back()->with('presensiBerhasil', 'Presensi telah dikirim!');
     }
-    public function cekNISPresensi(Request $request) {
+    public function cekNISPresensi(Request $request)
+    {
         $nisPresensi = $request->input('nis');
         $presensiSiswa = Siswa::where('nis', $nisPresensi)->exists();
 
@@ -80,6 +85,8 @@ class AnggotaController extends Controller
 
         // Cek NIS di tabel siswa
         $siswa = Siswa::where('nis', $nis)->first();
+        $jurusan = Jurusan::where('jurusan', $request->input('jurusan'))->first();
+        $kelas = Kelas::where('kelas', $request->input('kelas'))->first();
 
         // Jika NIS belum terdaftar di tabel siswa, masukkan data ke tabel siswa
         if (!$siswa) {
@@ -87,8 +94,8 @@ class AnggotaController extends Controller
                 'nis' => $nis,
                 'email' => $request->input('email'),
                 'nama_siswa' => $request->input('nama_siswa'),
-                'kelas' => $request->input('kelas'),
-                'jurusan' => $request->input('jurusan'),
+                'id_kelas' => $kelas->id_kelas,
+                'id_jurusan' => $jurusan->id_jurusan,
                 'no_telp' => $request->input('no_telp'),
             ]);
         } else {
@@ -107,12 +114,50 @@ class AnggotaController extends Controller
             'nis' => $nis,
             'email' => $request->input('email'),
             'nama_siswa' => $request->input('nama_siswa'),
-            'kelas' => $request->input('kelas'),
-            'jurusan' => $request->input('jurusan'),
+            'id_kelas' => $kelas->id_kelas,
+            'id_jurusan' => $jurusan->id_jurusan,
             'no_telp' => $request->input('no_telp'),
+            'status' => 'pending',
         ]);
 
         return redirect()->back()->with('daftarBerhasil', 'Data telah dikirim, mohon tunggu informasi selanjutnya');
+    }
+
+    public function updatePendaftaranStatus(Request $request, $id)
+    {
+        $pendaftar = Pendaftar::findOrFail($id);
+        $pendaftar->update(['status' => $request->input('status')]);
+
+        if ($request->input('status') == 'terima') {
+            // Move data to Siswa table
+            Siswa::create([
+                'nis' => $pendaftar->nis,
+                'email' => $pendaftar->email,
+                'nama_siswa' => $pendaftar->nama_siswa,
+                'id_kelas' => $pendaftar->id_kelas,
+                'id_jurusan' => $pendaftar->id_jurusan,
+                'no_telp' => $pendaftar->no_telp,
+                'status' => 'aktif',
+            ]);
+
+            // Delete the Pendaftar record
+            $pendaftar->delete();
+        } else {
+            // Delete the Pendaftar record
+            $pendaftar->delete();
+        }
+
+        return redirect()->back()->with('statusBerhasil', 'Status pendaftaran berhasil diubah.');
+    }
+    public function detail($id)
+    {
+        $pendaftar = Pendaftar::find($id);
+
+        if (!$pendaftar) {
+            return View::make('modules.anggota.pendaftar.detail')->with('pendaftar', null);
+        }
+
+        return View::make('modules.anggota.pendaftar.detail')->with('pendaftar', $pendaftar);
     }
 
     public function cekNISPendaftar(Request $request)
