@@ -12,6 +12,10 @@
         <input type="text" name="nama_kegiatan" value="{{ $kegiatan->nama_kegiatan }}" required>
         <label for="tautan_dokumentasi">Tautan Dokumentasi:</label>
         <input type="url" name="tautan_dokumentasi" value="{{ $kegiatan->tautan_dokumentasi }}" required>
-        <button type="submit">Simpan Perubahan</button>
+        <label for="deskripsi">Deskripsi:</label>
+        <textarea name="deskripsi" required>{{ $kegiatan->deskripsi }}</textarea>
+        <label for="tanggal">Tanggal:</label>
+        <input type="date" name="tanggal" value="{{ $kegiatan->tanggal }}" required>
+        <button type="submit">Simpan</button>
     </form>
 @endsection

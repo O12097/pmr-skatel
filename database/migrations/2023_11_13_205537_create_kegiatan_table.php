@@ -15,6 +15,8 @@ return new class extends Migration
         //     $table->integerIncrements('id_kegiatan')->primary();
         //     $table->string('nama_kegiatan', 100);
         //     $table->string('tautan_dokumentasi')->nullable();
+        //     $table->string('deskripsi', 100)->nullable();
+        //     $table->date('tanggal')->nullable();
         //     $table->timestamps();
         // });
     }

@@ -9,25 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        // Schema::create('pendaftar', function (Blueprint $table) {
-        //     $table->integerIncrements('id_pendaftar')->primary();
-        //     $table->string('nis', 15);
-        //     $table->string('email', 50);
-        //     $table->string('nama_siswa', 50);
-        //     $table->foreignId('id_jurusan')->constrained('jurusan');
-        //     $table->foreignId('id_kelas')->constrained('kelas');
-        //     $table->string('no_telp', 15);
-        //     $table->enum('aksi', ['pending', 'terima', 'tidak']);
-        // });
-    }
+    // public function up(): void
+    // {
+    //     Schema::create('pendaftar', function (Blueprint $table) {
+    //         $table->integerIncrements('id_pendaftar')->primary();
+    //         $table->string('nis', 15);
+    //         $table->string('email', 50);
+    //         $table->string('nama_siswa', 50);
+    //         $table->foreignId('id_jurusan')->constrained('jurusan');
+    //         $table->foreignId('id_kelas')->constrained('kelas');
+    //         $table->string('no_telp', 15);
+    //         $table->enum('aksi', ['pending', 'terima', 'tidak']);
+    //     });
+    // }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        Schema::dropIfExists('pendaftar');
-    }
+    // public function down(): void
+    // {
+    //     Schema::dropIfExists('pendaftar');
+    // }
 };

@@ -9,14 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        // Schema::create('kelas', function (Blueprint $table) {
-        //     $table->integerIncrements('id_kelas');
-        //     $table->string('kelas', 5);
-        //     $table->enum('status', ['on', 'off']);
-        // });
-    }
+    // public function up(): void
+    // {
+    //     Schema::create('kelas', function (Blueprint $table) {
+    //         $table->integerIncrements('id_kelas');
+    //         $table->string('kelas', 5);
+    //         $table->enum('status', ['on', 'off']);
+    //     });
+    // }
 
     /**
      * Reverse the migrations.

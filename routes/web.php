@@ -75,7 +75,11 @@ Route::post('/kegiatan/dokumentasi/create', [KegiatanController::class, 'create'
 Route::get('/kegiatan/dokumentasi/{id}', [KegiatanController::class, 'detail'])->name('kegiatan.dokumentasi.detail')->middleware('isLogin');
 Route::get('/kegiatan/dokumentasi/{id}/edit', [KegiatanController::class, 'editForm'])->name('kegiatan.dokumentasi.editForm')->middleware('isLogin');
 Route::put('/kegiatan/dokumentasi/{id}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.dokumentasi.edit')->middleware('isLogin');
+Route::get('/kegiatan/dokumentasi/{id}/delete', [KegiatanController::class, 'delete'])->name('kegiatan.dokumentasi.destroy')->middleware('isLogin');
 Route::delete('/kegiatan/dokumentasi/{id}', [KegiatanController::class, 'delete'])->name('kegiatan.dokumentasi.delete')->middleware('isLogin');
+// ...
+Route::get('/kegiatan/dokumentasi/calendar-events', [KegiatanController::class, 'getCalendarEvents'])->name('kegiatan.dokumentasi.calendar-events')->middleware('isLogin');
+
 
 
 // FOLDER BERANDA/LANDING PAGE
