@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    
     // public function up(): void
     // {
     //     Schema::create('pendaftar', function (Blueprint $table) {
@@ -19,13 +17,10 @@ return new class extends Migration
     //         $table->foreignId('id_jurusan')->constrained('jurusan');
     //         $table->foreignId('id_kelas')->constrained('kelas');
     //         $table->string('no_telp', 15);
-    //         $table->enum('aksi', ['pending', 'terima', 'tidak']);
+    //         $table->enum('status', ['pending', 'terima', 'tidak'])->default('pending');
     //     });
     // }
 
-    /**
-     * Reverse the migrations.
-     */
     // public function down(): void
     // {
     //     Schema::dropIfExists('pendaftar');

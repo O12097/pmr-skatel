@@ -14,6 +14,24 @@
 </style>
 
 @section('content')
+    @if (session('successJurusan'))
+        <script>
+            $(document).ready(function() {
+                Alert.success("{{ session('successJurusan') }}", 'Berhasil', {
+                    displayDuration: 5000
+                });
+            });
+        </script>
+    @endif
+    @if (session('successUpdateJurusan'))
+        <script>
+            $(document).ready(function() {
+                Alert.success("{{ session('successUpdateJurusan') }}", 'Berhasil', {
+                    displayDuration: 5000
+                });
+            });
+        </script>
+    @endif
     <a href="{{ route('konfigurasi.jurusan.form') }}" class="btn btn-primary">Create Jurusan</a>
     @isset($dataJurusan)
         <table border="1">

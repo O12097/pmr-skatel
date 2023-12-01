@@ -13,6 +13,24 @@
     }
 </style>
 @section('content')
+    @if (session('successKelas'))
+        <script>
+            $(document).ready(function() {
+                Alert.success("{{ session('successKelas') }}", 'Berhasil', {
+                    displayDuration: 5000
+                });
+            });
+        </script>
+    @endif
+    @if (session('successUpdateKelas'))
+        <script>
+            $(document).ready(function() {
+                Alert.success("{{ session('successUpdateKelas') }}", 'Berhasil', {
+                    displayDuration: 5000
+                });
+            });
+        </script>
+    @endif
     <a href="{{ route('konfigurasi.kelas.form') }}" class="btn btn-primary">Create Kelas</a>
     @isset($dataKelas)
         <table border="1">

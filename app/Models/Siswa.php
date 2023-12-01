@@ -21,7 +21,7 @@ class Siswa extends Model
         'id_jurusan',
         'id_kelas',
         'no_telp',
-        'created_at',
+        'status',
     ];
     public $timestamps = false;
 
@@ -40,4 +40,5 @@ class Siswa extends Model
     {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
     }
+    
 }

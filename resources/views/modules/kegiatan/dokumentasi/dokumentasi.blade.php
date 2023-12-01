@@ -12,9 +12,36 @@
         transform: translate(-50%, -50%);
         text-align: center;
     }
-
 </style>
 @section('content')
+    @if (session('successKegiatan'))
+        <script>
+            $(document).ready(function() {
+                Alert.success("{{ session('successKegiatan') }}", 'Berhasil', {
+                    displayDuration: 5000
+                });
+            });
+        </script>
+    @endif
+    @if (session('successUpdateKegiatan'))
+        <script>
+            $(document).ready(function() {
+                Alert.success("{{ session('successUpdateKegiatan') }}", 'Berhasil', {
+                    displayDuration: 5000
+                });
+            });
+        </script>
+    @endif
+    @if (session('successDeleteKegiatan'))
+        <script>
+            $(document).ready(function() {
+                Alert.success("{{ session('successDeleteKegiatan') }}", 'Berhasil', {
+                    displayDuration: 5000
+                });
+            });
+        </script>
+    @endif
+
     <div class="flex">
         <!-- Left Section - Card View -->
         <div class="w-3/5 p-4 text-xl">

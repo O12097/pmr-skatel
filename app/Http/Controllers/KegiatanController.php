@@ -36,7 +36,7 @@ class KegiatanController extends Controller
             'tanggal' => $request->tanggal,
         ]);
 
-        return redirect()->route('kegiatan.dokumentasi')->with('success', 'Kegiatan berhasil ditambahkan.');
+        return redirect()->route('kegiatan.dokumentasi')->with('successKegiatan', 'Kegiatan berhasil ditambahkan');
     }
 
     public function detail($id)
@@ -80,7 +80,7 @@ class KegiatanController extends Controller
             $kegiatan->touch();
         }
 
-        return redirect()->route('kegiatan.dokumentasi')->with('success', 'Kegiatan berhasil diperbarui.');
+        return redirect()->route('kegiatan.dokumentasi')->with('successUpdateKegiatan', 'Kegiatan berhasil diperbarui');
     }
 
 
@@ -89,7 +89,7 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::findOrFail($id);
         $kegiatan->delete();
 
-        return redirect()->route('kegiatan.dokumentasi')->with('success', 'Kegiatan berhasil dihapus.');
+        return redirect()->route('kegiatan.dokumentasi')->with('successDeleteKegiatan', 'Kegiatan berhasil dihapus');
     }
 
     public function getCalendarEvents()

@@ -22,7 +22,7 @@
             <script>
                 $(document).ready(function() {
                     Alert.warning("{{ session('nisTidakTerdaftar') }}", 'Peringatan', {
-                        displayDuration: 3000
+                        displayDuration: 5000
                     });
                 });
             </script>
@@ -32,7 +32,7 @@
             <script>
                 $(document).ready(function() {
                     Alert.success("{{ session('presensiBerhasil') }}", 'Berhasil', {
-                        displayDuration: 3000
+                        displayDuration: 5000
                     });
                 });
             </script>
@@ -69,9 +69,9 @@
 
 
                 {{-- FIELD TANGGAL PRESENSI  --}}
-                <input type="date" id="tanggal_presensi"
+                {{-- <input type="date" id="tanggal_presensi"
                     class="w-[843px] h-[62px] px-[20px] py-4 left-[89px] top-[161px] absolute bg-white rounded-[15px] border border-zinc-400 justify-start items-center gap-[613px] inline-flex text-xl font-normal font-['Inria Sans']"
-                    required />
+                    required /> --}}
                 {{-- END TANGGAL PRESENSI --}}
 
                 {{-- FIELD STATUS --}}

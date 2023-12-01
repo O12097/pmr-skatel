@@ -279,7 +279,7 @@
             });
             $(document).ready(function() {
                 Alert.error('{{ session('notLoginPage') }}', 'Peringatan', {
-                    displayDuration: 3000
+                    displayDuration: 5000
                 });
             });
         </script>

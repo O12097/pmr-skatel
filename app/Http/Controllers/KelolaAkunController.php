@@ -3,75 +3,87 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class KelolaAkunController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return view('modules.kelola_akun.index', compact('users'));
+        $akunList = User::all();
+        return view('modules.kelola_akun.index', compact('akunList'));
     }
 
     public function create()
     {
-        // form tambah akun
-        return view('modules.kelola_akun.create');
+        $siswaList = Siswa::all();
+        return view('modules.kelola_akun.create', compact('siswaList'));
     }
 
-    public function store(Request $request)
+    public function createProcess(Request $request)
     {
-        // validasi
-        $request->validate([
-            'nama_siswa' => 'required',
+        $data = $request->validate([
+            // 'nama_siswa' => 'required|string|max:50',
+            'nis' => 'required|string|nullable',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'nis' => 'nullable|exists:siswa,nis',
+            'password' => 'required|string',
         ]);
 
-        // TOLONG KERJASAMANYA ajg ajg ajg
-        User::create([
-            'nama_siswa' => $request->nama_siswa,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'nis' => $request->nis,
-        ]);
+        $existingPengelola = User::where('nis', $data['nis'])->exists();
+
+        if ($existingPengelola) {
+            return redirect()->back()->with('error', 'NIS sudah terdaftar sebagai pengelola.');
+        }
+
+        $siswa = Siswa::where('nis', $data['nis'])->first();
+
+        if ($siswa) {
+            $data['nama_siswa'] = $siswa->nama_siswa;
+        } else {
+            return redirect()->back()->with('error', 'NIS tidak terdaftar sebagai siswa.');
+        }
+
+        $data['nama_siswa'] = $siswa->nama_siswa;
+        return view('modules.kelola_akun.create', compact('data'));
+
+        $data['password'] = bcrypt($data['password']);
+
+        User::create($data);
+        // dd($data);
 
         return redirect()->route('kelola.akun.index')->with('success', 'Akun berhasil ditambahkan');
     }
 
     public function edit(User $user)
     {
-        // tampilin form edit akun
         return view('modules.kelola_akun.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    public function editProcess(Request $request, User $user)
     {
-        // validasi
-        $request->validate([
-            'nama_siswa' => 'required',
+        $data = $request->validate([
+            'nama_siswa' => 'required|string|max:50',
+            'nis' => 'required|string|nullable',
             'email' => 'required|email|unique:users,email,' . $user->id_user . ',id_user',
-            'password' => 'nullable|min:6',
-            'nis' => 'nullable|exists:siswa,nis',
+            'password' => 'nullable|string',
         ]);
 
-        // update akun
-        $user->update([
-            'nama_siswa' => $request->nama_siswa,
-            'email' => $request->email,
-            'password' => $request->password ? Hash::make($request->password) : $user->password,
-            'nis' => $request->nis,
-        ]);
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']); // Ignore password if not provided
+        }
+
+        $user->update($data);
 
         return redirect()->route('kelola.akun.index')->with('success', 'Akun berhasil diperbarui');
     }
 
     public function destroy(User $user)
     {
-        // delete akun
         $user->delete();
+
         return redirect()->route('kelola.akun.index')->with('success', 'Akun berhasil dihapus');
     }
+
 }

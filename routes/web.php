@@ -8,6 +8,8 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KonfigurasiController;
 use App\Http\Controllers\KelolaAkunController;
+use App\Models\Siswa;
+
 
 // use App\Models\Konfigurasi;
 // use Illuminate\Contracts\Session\Session;
@@ -30,28 +32,32 @@ Route::get('/', function () {
 
 //SESI LOGIN
 Route::get('/login', [SessionController::class, 'index']);
-Route::get('/logout', [SessionController::class, 'logout']);
+Route::get('/logout', [SessionController::class, 'logout'])->name('logout');
 Route::post('/login/proses', [SessionController::class, 'login']);
 // AUTH
 Route::post('/login', 'Auth\SessionController@login')->name('login');
-// Route::middleware(['web'])->group(function () {
-//     Route::post('/login/proses', [SessionController::class, 'login'])->name('login.proses');
-// });
 
 
 //FOLDER DASHBOARD
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('isLogin');
+Route::get('/dashboard/pdf', [DashboardController::class, 'pdf'])->name('download.pdf')->middleware('isLogin');
 
+// FOLDER DATA ANGGOTA
+Route::get('/anggota/data', [AnggotaController::class, 'data'])->name('anggota.data')->middleware('isLogin');
+Route::get('/anggota/data/{nis}/edit', [AnggotaController::class, 'edit'])->name('anggota.data.edit')->middleware('isLogin');
+Route::get('/anggota/data/{id}/detail', [AnggotaController::class, 'detail'])->name('anggota.data.detail')->middleware('isLogin');
+Route::get('/anggota/data/{nis}/edit', [AnggotaController::class, 'edit'])->name('anggota.data.edit')->middleware('isLogin');
+Route::put('/anggota/data/{nis}/update', [AnggotaController::class, 'update'])->name('anggota.data.update');
+Route::delete('/anggota/data/{nis}/delete', [AnggotaController::class, 'delete'])->name('anggota.data.delete')->middleware('isLogin');
 
 
 // FOLDER PENDAFTAR
-Route::get('/anggota/data', [AnggotaController::class, 'data'])->name('anggota.data')->middleware('isLogin');
 Route::get('/anggota/pendaftar', [AnggotaController::class, 'pendaftar'])->name('anggota.pendaftar')->middleware('isLogin');
 Route::get('/daftar/form', [AnggotaController::class, 'formPendaftaran'])->name('anggota.pendaftar.form');
-Route::get('/anggota/pendaftar/{id}/detail', [AnggotaController::class, 'detail'])->name('anggota.pendaftar.detail')->middleware('isLogin');
 Route::post('/daftar', [AnggotaController::class, 'submitPendaftaran'])->name('anggota.pendaftaran.submit');
 Route::get('/anggota/pendaftar/{id}/detail', [AnggotaController::class, 'detail'])->name('anggota.pendaftar.detail')->middleware('isLogin');
-Route::post('/anggota/pendaftar/{id}/update-status/{status}', [AnggotaController::class, 'updateStatus'])->name('anggota.pendaftar.updateStatus');
+Route::post('/anggota/pendaftar/{id}/update-status/{status}', [AnggotaController::class, 'updatePendaftaranStatus'])->name('anggota.pendaftar.updateStatus');
+Route::post('/anggota/cek-email', [AnggotaController::class, 'cekEmail'])->name('anggota.cekEmail');
 
 //kode dibawah ini penambahan, buat munculin indikasi nis sudah terdaftar, tapi langsung dibawah field nis, gak perlu disubmit(Daftar)
 Route::post('/anggota/cek-nis', [AnggotaController::class, 'cekNISPendaftar'])->name('anggota.cekNIS');
@@ -102,10 +108,19 @@ Route::post('/konfigurasi/kelas/update/{id}', [KonfigurasiController::class, 'up
 Route::get('/konfigurasi/kelas/edit/{id}', [KonfigurasiController::class, 'editKelas'])->name('konfigurasi.kelas.edit')->middleware('isLogin');
 
 
-
+// FOLDER KELOLA_AKUN
 Route::get('/kelola_akun/index', [KelolaAkunController::class, 'index'])->name('kelola.akun.index')->middleware('isLogin');
-Route::get('/kelola_akun/create', [KelolaAkunController::class, 'create'])->name('kelola.akun.create')->middleware('isLogin');
-Route::post('/kelola_akun/store', [KelolaAkunController::class, 'store'])->name('kelola.akun.store')->middleware('isLogin');
-Route::get('/kelola_akun/{user}/edit', [KelolaAkunController::class, 'edit'])->name('kelola.akun.edit')->middleware('isLogin');
-Route::put('/kelola_akun/{user}/update', [KelolaAkunController::class, 'update'])->name('kelola.akun.update')->middleware('isLogin');
+Route::get('/kelola_akun/create', [KelolaAkunController::class, 'create'])->name('kelola.akun.form-tambah')->middleware('isLogin');
+Route::post('/kelola_akun/createProcess', [KelolaAkunController::class, 'createProcess'])->name('kelola.akun.createProcess')->middleware('isLogin');
+Route::get('/kelola_akun/{user}/edit', [KelolaAkunController::class, 'edit'])->name('kelola.akun.form-edit')->middleware('isLogin');
+Route::put('/kelola_akun/{user}/editProcess', [KelolaAkunController::class, 'editProcess'])->name('kelola.akun.editProcess')->middleware('isLogin');
 Route::delete('/kelola_akun/{user}/destroy', [KelolaAkunController::class, 'destroy'])->name('kelola.akun.destroy')->middleware('isLogin');
+Route::get('/get-siswa-by-nis/{nis}', function ($nis) {
+    $siswa = Siswa::where('nis', $nis)->first();
+
+    if ($siswa) {
+        return response()->json(['nama_siswa' => $siswa->nama_siswa]);
+    } else {
+        return response()->json(['nama_siswa' => null]);
+    }
+});

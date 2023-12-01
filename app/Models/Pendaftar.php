@@ -26,7 +26,7 @@ class Pendaftar extends Model
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'nis', 'nis');
+        return $this->hasOne(Siswa::class, 'nis', 'nis');
     }
 
     public function jurusan()
@@ -37,5 +37,9 @@ class Pendaftar extends Model
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
+    }
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
     }
 }

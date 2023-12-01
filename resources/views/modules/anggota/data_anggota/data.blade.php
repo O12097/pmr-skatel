@@ -1,107 +1,81 @@
 @extends('modules.preloader')
 @extends('modules.partials')
 
-
-
 @section('content')
+
+    <style>
+        .centered-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .action-icons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .action-icons a {
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+
+
     @isset($dataSiswa)
-        <div class="w-[889px] h-[597px] bg-white rounded-lg border border-zinc-400 justify-start items-start inline-flex">
-            <div
-                class="w-[146px] h-[595px] rounded-[10px] border border-neutral-200 flex-col justify-start items-start inline-flex">
-                <div
-                    class="self-stretch h-[45px] bg-red-700 border-b border-neutral-200 justify-center items-center gap-2.5 inline-flex">
-                    <div class="grow shrink basis-0 text-center text-white text-xl font-bold font-['Inria Sans']">NIS</div>
-                </div>
-                @foreach ($dataSiswa as $item)
-                    <div class="self-stretch h-[55px] bg-white justify-center items-center gap-2.5 inline-flex">
-                        <div class="grow shrink basis-0 text-center text-black text-xl font-normal font-['Inria Sans']">
-                            {{ $item->nis }}</div>
-                    </div>
-                @endforeach
-            </div>
-            <div
-                class="w-[207px] h-[595px] rounded-[10px] border border-neutral-200 flex-col justify-start items-start inline-flex">
-                <div
-                    class="self-stretch h-[45px] bg-red-700 border-b border-neutral-200 justify-center items-center gap-2.5 inline-flex">
-                    <div class="grow shrink basis-0 text-center text-white text-xl font-bold font-['Inria Sans']">Nama Siswa</div>
-                </div>
-                @foreach ($dataSiswa as $item)
-                    <div class="self-stretch h-[55px] bg-white justify-center items-center gap-2.5 inline-flex">
-                        <div class="grow shrink basis-0 text-center text-black text-xl font-normal font-['Inria Sans']">
-                            {{ $item->nama_siswa }}</div>
-                    </div>
-                @endforeach
-            </div>
-            <div
-                class="grow shrink basis-0 h-[595px] rounded-[10px] border border-neutral-200 flex-col justify-start items-start inline-flex">
-                <div
-                    class="self-stretch h-[45px] bg-red-700 border-b border-neutral-200 justify-center items-center gap-2.5 inline-flex">
-                    <div class="grow shrink basis-0 text-center text-white text-xl font-bold font-['Inria Sans']">Kelas
-                    </div>
-                </div>
-                @foreach ($dataSiswa as $item)
-                    <div class="self-stretch h-[55px] bg-white justify-center items-center gap-2.5 inline-flex">
-                        <div class="grow shrink basis-0 text-center text-black text-xl font-normal font-['Inria Sans']">
-                            {{ $item->kelas->kelas }}</div>
-                    </div>
-                @endforeach
-            </div>
-            <div
-                class="grow shrink basis-0 h-[595px] rounded-[10px] border border-neutral-200 flex-col justify-start items-start inline-flex">
-                <div
-                    class="self-stretch h-[45px] bg-red-700 border-b border-neutral-200 justify-center items-center gap-2.5 inline-flex">
-                    <div class="grow shrink basis-0 text-center text-white text-xl font-bold font-['Inria Sans']">Jurusan
-                    </div>
-                </div>
-                @foreach ($dataSiswa as $item)
-                    <div class="self-stretch h-[55px] bg-white justify-center items-center gap-2.5 inline-flex">
-                        <div class="grow shrink basis-0 text-center text-black text-xl font-normal font-['Inria Sans']">
-                            {{ $item->jurusan->jurusan }}</div>
-                    </div>
-                @endforeach
-            </div>
-            <div
-                class="w-[116px] h-[595px] rounded-[10px] border border-neutral-200 flex-col justify-start items-start inline-flex">
-                <div
-                    class="self-stretch h-[45px] bg-red-700 border-b border-neutral-200 justify-center items-center gap-2.5 inline-flex">
-                    <div class="grow shrink basis-0 text-center text-white text-xl font-bold font-['Inria Sans']">No Telepon
-                    </div>
-                </div>
-                @foreach ($dataSiswa as $item)
-                    <div class="self-stretch h-[55px] bg-white justify-center items-center gap-2.5 inline-flex">
-                        <div class="grow shrink basis-0 text-center text-black text-xl font-normal font-['Inria Sans']">
-                            {{ $item->no_telp }}</div>
-                    </div>
-                @endforeach
-            </div>
-            <div
-                class="w-[104px] h-[595px] rounded-[10px] border border-neutral-200 flex-col justify-start items-start inline-flex">
-                <div
-                    class="self-stretch h-[45px] bg-red-700 border-b border-neutral-200 justify-center items-center gap-2.5 inline-flex">
-                    <div class="grow shrink basis-0 text-center text-white text-xl font-bold font-['Inria Sans']">Status
-                    </div>
-                </div>
-                @foreach ($dataSiswa as $item)
-                    <div class="self-stretch h-[55px] bg-white justify-center items-center gap-2.5 inline-flex">
-                        <div class="grow shrink basis-0 text-center text-black text-xl font-normal font-['Inria Sans']">
-                            {{ $item->status }}</div>
-                    </div>
-                @endforeach
-            </div>
-            <div
-                class="w-[122px] h-[595px] rounded-[10px] border border-neutral-200 flex-col justify-start items-start inline-flex">
-                <div
-                    class="self-stretch h-[45px] bg-red-700 border-b border-neutral-200 justify-center items-center gap-2.5 inline-flex">
-                    <div class="grow shrink basis-0 text-center text-white text-xl font-bold font-['Inria Sans']">Aksi
-                    </div>
-                </div>
-                @foreach ($dataSiswa as $item)
-                    <div class="self-stretch h-[55px] justify-center items-center gap-2.5 inline-flex">
-                        <iconify-icon icon="akar-icons:edit" class="w-[30px] h-[30px] text-[#444]" relative"></iconify-icon>
-                        <iconify-icon icon="fluent:delete-12-regular" class="w-[30px] h-[30px] text-[#CC0606] relative"></iconify-icon>
-                    </div>
-                @endforeach
-            </div>
+    @if (session('updateDataAnggota'))
+            <script>
+                $(document).ready(function() {
+                    Alert.success("{{ session('updateDataAnggota') }}", 'Berhasil', {
+                        displayDuration: 5000
+                    });
+                });
+            </script>
+        @endif
+
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>NIS</th>
+                        <th>Nama Siswa</th>
+                        <th>Kelas</th>
+                        <th>Jurusan</th>
+                        <th>No Telepon</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($dataSiswa as $item)
+                        <tr>
+                            <td>{{ $item->nis }}</td>
+                            <td>{{ $item->nama_siswa }}</td>
+                            <td>{{ $item->kelas->kelas }}</td>
+                            <td>{{ $item->jurusan->jurusan }}</td>
+                            <td>{{ $item->no_telp }}</td>
+                            <td>{{ $item->status }}</td>
+                            <td>
+                                <a href="{{ route('anggota.data.edit', $item->nis) }}">
+                                    Edit
+                                </a>
+                                <a href="{{ route('anggota.data.delete', $item->nis) }}"
+                                    onclick="event.preventDefault(); document.getElementById('delete-form-{{ $item->nis }}').submit();">
+                                    Hapus
+                                </a>
+                                <form id="delete-form-{{ $item->nis }}"
+                                    action="{{ route('anggota.data.delete', $item->nis) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     @else
         <p>Data tidak ditemukan</p>

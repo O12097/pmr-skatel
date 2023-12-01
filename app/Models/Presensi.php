@@ -11,6 +11,7 @@ class Presensi extends Model
 
     protected $casts = [
         'nis' => 'string',
+        'tanggal_presensi' => 'datetime',
     ];
 
     protected $table = 'presensi';

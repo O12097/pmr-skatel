@@ -158,6 +158,11 @@
             padding-bottom: 12px;
         }
 
+        .highlight {
+            background-color: #aaffaa;
+            font-weight: bold;
+        }
+
         .unstyled {
             margin: 0;
             list-style: none;
@@ -300,7 +305,7 @@
         body {
             background: #f8f8f8;
             font-family: 'Inria Sans';
-            overflow-y: hidden;
+            overflow-y: auto;
             overflow-x: hidden;
             margin: 0;
             padding: 0;
@@ -308,6 +313,25 @@
             opacity: 0;
             transition: opacity `s ease-in-out;
 
+        }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track (bagian latar belakang scrollbar) */
+        body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle (pemegang atau thumb scrollbar) */
+        body::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Merubah warna thumb saat dihover */
+        body::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
 
         form .placeholder {
@@ -346,6 +370,7 @@
 
         .sidebar.show {
             transform: translateX(0%);
+            position: fixed;
         }
 
         .content-container {
@@ -378,15 +403,15 @@
         }
 
         .section-content {
-            width: calc(100% - 200px);
+            width: calc(100% - 100px);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 80vh;
+            /* height: 80vh; */
         }
 
         .sidebar.show+.content-container {
-            margin-left: 150px;
+            margin-left: 200px;
 
         }
 
@@ -574,7 +599,7 @@
             <script id="rendered-js">
                 $(document).ready(function() {
                     Alert.success('{{ session('successLogin') }}', 'Log in berhasil', {
-                        displayDuration: 3000
+                        displayDuration: 5000
                     });
                 });
             </script>
@@ -702,19 +727,19 @@
                     </li>
 
                     <li class="absolute bottom-0 left-0 right-0">
-                        <a href="" onclick="logoutConfirm()"
+                        <div id="logoutButton"
                             class="logout-link flex items-center py-2 px-4 text-white text-[20px] bg-red-700 hover:bg-red-800 transition duration-300 rounded">
                             <iconify-icon icon="codicon:sign-out" class="mr-2" height="25"
                                 width="25"></iconify-icon>
                             Keluar
-                        </a>
+                        </div>
                     </li>
                 </ul>
             </div>
         </nav>
 
         <div class="content-container">
-            <nav class="navbar flex justify-between items-center flex-grow px-4">
+            <nav class="navbar flex justify-between items-center flex-grow px-4z-50">
                 <div class="navbar w-full h-[98.36px] left-[325px] top-0 absolute">
                     <div class="navbar w-full h-[98.36px] left-0 top-0 absolute border-neutral-200"></div>
                     <div
@@ -727,26 +752,44 @@
                                 style="color: #cc0606; cursor: pointer;" height="40" width="40"
                                 class="sidebar-icon left-[27px] top-[36.39px] absolute"></iconify-icon>
                         </div>
-
-                        <div class="search-container w-[292px] h-[42.34px] left-[779px] top-[33px] relative">
-                            <input
-                                class="search-input w-[292px] h-[42.34px] pl-3 left-0 top-0 absolute bg-white rounded-[10px] border-2 border-neutral-200 text-neutral-700 text-[20px]" />
-                            <div
-                                class="w-[45.72px] h-[42.34px] left-[246.28px] top-0 absolute transition ease-in-out delay-50 bg-red-700 hover:bg-red-800 duration-300 rounded-tr-[10px] rounded-br-[10px]">
-                            </div>
-                            <iconify-icon icon="ic:round-search" style="color: #f8f8f8;" height="25"
-                                width="25"
-                                class="w-[25.98px] h-[26.46px] left-[256.67px] top-[8.47px] absolute"></iconify-icon>
-                        </div>
                     </div>
                 </div>
             </nav>
-            <div class="content">
+            <div class="content relative">
                 <section class="section-content">
                     @yield('content')
                 </section>
             </div>
         </div>
+
+
+        <div id="logoutModal"
+            class="hidden fixed inset-0 z-50 overflow-auto bg-smoky-900 flex items-center justify-center bg-black bg-opacity-75 ">
+            <div class="bg-white p-8 max-w-md mx-auto rounded shadow-md">
+                <p class="text-lg font-semibold mb-4">Apakah Anda yakin ingin keluar?</p>
+                <div class="flex justify-end">
+                    <button id="cancelButton"
+                        class="px-4 py-2 mr-2 text-white bg-gray-500 hover:bg-gray-600 rounded">Batal</button>
+                    <button id="confirmButton"
+                        class="px-4 py-2 text-white bg-red-700 hover:bg-red-800 rounded">Keluar</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('logoutButton').addEventListener('click', function() {
+                document.getElementById('logoutModal').classList.remove('hidden');
+            });
+
+            document.getElementById('cancelButton').addEventListener('click', function() {
+                document.getElementById('logoutModal').classList.add('hidden');
+            });
+
+            document.getElementById('confirmButton').addEventListener('click', function() {
+                window.location.href = "{{ route('logout') }}";
+            });
+        </script>
+
     @endif
 </body>
 
@@ -888,7 +931,7 @@
         });
         $('.logout-link').on('click', function(event) {
             event.preventDefault();
-            window.location.href = '/logout';
+            document.getElementById('logoutModal').classList.remove('hidden');
         });
     });
 </script>
@@ -905,6 +948,10 @@
                 pageTitle = 'ANGGOTA';
             } else if (path.includes('/kegiatan/dokumentasi')) {
                 pageTitle = 'KEGIATAN';
+            } else if (path.includes('/konfigurasi/jurusan') || path.includes('/konfigurasi/kelas')) {
+                pageTitle = 'KONFIGURASI';
+            } else if (path.includes('/kelola_akun')) {
+                pageTitle = 'KELOLA';
             }
 
             $('.page-title').text(pageTitle);
@@ -922,7 +969,5 @@
         document.body.style.opacity = 1;
     });
 </script>
-
-
 
 </html>

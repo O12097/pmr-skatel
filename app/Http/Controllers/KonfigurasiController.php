@@ -7,8 +7,6 @@ use App\Models\Jurusan;
 use App\Models\Kelas;
 use Illuminate\Validation\Rule;
 
-
-
 class KonfigurasiController extends Controller
 {
     public function jurusan()
@@ -48,9 +46,6 @@ class KonfigurasiController extends Controller
 
     public function createJurusan(Request $request)
     {
-        // debugging
-        // dd($request->all());
-
         // validasi input form
         $request->validate([
             'jurusan' => 'required|string|max:100|unique:jurusan,jurusan',
@@ -62,8 +57,10 @@ class KonfigurasiController extends Controller
             'jurusan' => $request->jurusan,
             'status' => $request->status,
         ]);
+        
+        // dd($query->toSql(), $query->getBindings());
 
-        return redirect()->route('konfigurasi.jurusan')->with('success', 'Data jurusan berhasil ditambahkan');
+        return redirect()->route('konfigurasi.jurusan')->with('successJurusan', 'Data jurusan berhasil ditambahkan');
     }
     public function updateJurusan(Request $request, $id)
     {
@@ -79,7 +76,7 @@ class KonfigurasiController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('konfigurasi.jurusan')->with('success', 'Data jurusan berhasil diperbarui');
+        return redirect()->route('konfigurasi.jurusan')->with('successUpdateJurusan', 'Data jurusan berhasil diperbarui');
     }
 
 
@@ -98,7 +95,7 @@ class KonfigurasiController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('konfigurasi.kelas')->with('success', 'Data kelas berhasil ditambahkan');
+        return redirect()->route('konfigurasi.kelas')->with('successKelas', 'Data kelas berhasil ditambahkan');
     }
 
     // Update Kelas
@@ -114,6 +111,6 @@ class KonfigurasiController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('konfigurasi.kelas')->with('success', 'Data kelas berhasil diperbarui');
+        return redirect()->route('konfigurasi.kelas')->with('successUpdateKelas', 'Data kelas berhasil diperbarui');
     }
 }

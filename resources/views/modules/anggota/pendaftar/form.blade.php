@@ -23,12 +23,21 @@
             <script>
                 $(document).ready(function() {
                     Alert.success("{{ session('daftarBerhasil') }}", 'Berhasil', {
-                        displayDuration: 3000
+                        displayDuration: 5000
                     });
                 });
             </script>
         @endif
 
+        @if (session('nisSudahTerdaftar'))
+            <script>
+                $(document).ready(function() {
+                    Alert.info("{{ session('nisSudahTerdaftar') }}", 'Informasi', {
+                        displayDuration: 5000
+                    });
+                });
+            </script>
+        @endif
         @if (session('nisSudahTerdaftar'))
             <script>
                 $(document).ready(function() {
@@ -67,9 +76,12 @@
 
 
                     {{-- FIELD EMAIL --}}
-                    <input type="email" placeholder="E-mail" name="email"
+                    <input type="email" placeholder="E-mail" name="email" id="email"
                         class="w-[843px] h-[62px] px-[20px] py-4 left-[89px] top-[151px] absolute bg-white rounded-[15px] border border-zinc-400 justify-center items-center gap-[613px] inline-flex text-xl font-normal font-['Inria Sans']"
                         required />
+                    <div id="emailCheckMessage"
+                        class="text-red-700 text-[14px] font-normal font-['Inria Sans'] left-[100px] top-[220px] absolute">
+                    </div>
                     {{-- END FIELD EMAIL --}}
 
                     {{-- FIELD NAME --}}
@@ -84,7 +96,9 @@
                         style="appearance: none;" required>
                         <option value="" disabled selected hidden>Kelas</option>
                         @foreach ($dataKelas as $kelas)
-                            <option value="{{ $kelas->kelas }}">{{ $kelas->kelas }}</option>
+                            @if ($kelas->status === 'on')
+                                <option value="{{ $kelas->kelas }}">{{ $kelas->kelas }}</option>
+                            @endif
                         @endforeach
                     </select>
                     <iconify-icon icon="ep:arrow-down" class="w-[15px] h-[15px] left-[899px] top-[373.50px] absolute"
@@ -97,7 +111,9 @@
                         style="appearance: none;" required>
                         <option value="" disabled selected hidden>Jurusan</option>
                         @foreach ($dataJurusan as $jurusan)
-                            <option value="{{ $jurusan->jurusan }}">{{ $jurusan->jurusan }}</option>
+                            @if ($jurusan->status === 'on')
+                                <option value="{{ $jurusan->jurusan }}">{{ $jurusan->jurusan }}</option>
+                            @endif
                         @endforeach
                     </select>
                     <iconify-icon icon="ep:arrow-down" class="w-[15px] h-[15px] left-[899px] top-[473.50px] absolute"
@@ -137,8 +153,10 @@
                     nis: nis
                 },
                 success: function(response) {
-                    if (response.exists) {
+                    if (response.siswaExists) {
                         nisCheckMessage.innerHTML = 'NIS sudah terdaftar';
+                    } else if (response.pendaftarExists) {
+                        nisCheckMessage.innerHTML = 'Anda sudah melakukan pendaftaran';
                     } else {
                         nisCheckMessage.innerHTML = '';
                     }
@@ -150,6 +168,37 @@
         });
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const emailInput = document.getElementById('email');
+        const emailCheckMessage = document.getElementById('emailCheckMessage');
+
+        emailInput.addEventListener('input', function() {
+            const email = emailInput.value;
+
+            // checking pakai ajax
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('anggota.cekEmail') }}', // Sesuaikan dengan nama route yang digunakan untuk validasi email
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    email: email
+                },
+                success: function(response) {
+                    if (!response.validEmail) {
+                        emailCheckMessage.innerHTML = 'Gunakan e-mail dari sekolah';
+                    } else {
+                        emailCheckMessage.innerHTML = '';
+                    }
+                },
+                error: function(error) {
+                    console.error('Error checking email:', error);
+                }
+            });
+        });
+    });
+</script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.body.style.opacity = 1;
