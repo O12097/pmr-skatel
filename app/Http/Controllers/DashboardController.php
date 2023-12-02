@@ -62,7 +62,7 @@ class DashboardController extends Controller
     {
         $presensiTimeline = Presensi::with('siswa')
             ->latest('tanggal_presensi')
-            ->take(5) // Ambil 5 data terbaru
+            ->take(4) // Ambil 5 data terbaru
             ->get();
 
         return $presensiTimeline;

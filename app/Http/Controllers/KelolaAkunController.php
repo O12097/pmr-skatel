@@ -40,7 +40,7 @@ class KelolaAkunController extends Controller
         if ($siswa) {
             $data['nama_siswa'] = $siswa->nama_siswa;
         } else {
-            return redirect()->back()->with('error', 'NIS tidak terdaftar sebagai siswa.');
+            return redirect()->back()->with('error', 'NIS tidak terdaftar sebagai anggota.');
         }
 
         $data['nama_siswa'] = $siswa->nama_siswa;

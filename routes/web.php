@@ -62,7 +62,7 @@ Route::post('/anggota/cek-email', [AnggotaController::class, 'cekEmail'])->name(
 //kode dibawah ini penambahan, buat munculin indikasi nis sudah terdaftar, tapi langsung dibawah field nis, gak perlu disubmit(Daftar)
 Route::post('/anggota/cek-nis', [AnggotaController::class, 'cekNISPendaftar'])->name('anggota.cekNIS');
 Route::post('/anggota/pendaftar/update-status/{id}', [AnggotaController::class, 'updatePendaftaranStatus'])->name('anggota.pendaftar.updateStatus');
-
+Route::post('/anggota/pendaftar/delete-multiple', [AnggotaController::class, 'deleteMultiple'])->name('anggota.pendaftar.deleteMultiple');
 
 
 // FOLDER PRESENSI

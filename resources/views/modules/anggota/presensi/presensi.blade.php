@@ -17,7 +17,6 @@
         <table border="1">
             <thead>
                 <tr>
-                    <th>No</th>
                     <th>NIS</th>
                     <th>Tanggal</th>
                     <th>Status</th>
@@ -26,7 +25,6 @@
             <tbody>
                 @foreach ($dataPresensi as $item)
                     <tr>
-                        <td></td>
                         <td>{{ $item->nis }}</td>
                         <td>{{ $item->tanggal_presensi }}</td>
                         <td>{{ $item->status_presensi }}</td>
