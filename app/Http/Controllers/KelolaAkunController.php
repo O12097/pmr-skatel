@@ -23,7 +23,6 @@ class KelolaAkunController extends Controller
     public function createProcess(Request $request)
     {
         $data = $request->validate([
-            // 'nama_siswa' => 'required|string|max:50',
             'nis' => 'required|string|nullable',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string',
@@ -37,19 +36,14 @@ class KelolaAkunController extends Controller
 
         $siswa = Siswa::where('nis', $data['nis'])->first();
 
-        if ($siswa) {
-            $data['nama_siswa'] = $siswa->nama_siswa;
-        } else {
+        if (!$siswa) {
             return redirect()->back()->with('error', 'NIS tidak terdaftar sebagai anggota.');
         }
 
         $data['nama_siswa'] = $siswa->nama_siswa;
-        return view('modules.kelola_akun.create', compact('data'));
-
         $data['password'] = bcrypt($data['password']);
 
         User::create($data);
-        // dd($data);
 
         return redirect()->route('kelola.akun.index')->with('success', 'Akun berhasil ditambahkan');
     }
@@ -85,5 +79,4 @@ class KelolaAkunController extends Controller
 
         return redirect()->route('kelola.akun.index')->with('success', 'Akun berhasil dihapus');
     }
-
 }

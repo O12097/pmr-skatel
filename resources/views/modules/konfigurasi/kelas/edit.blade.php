@@ -23,7 +23,7 @@
             </div>
         @endif
 
-        <form method="post" action="{{ route('konfigurasi.kelas.update', ['id' => $dataKelas->id_kelas]) }}">
+        <form method="post" action="{{ route('konfigurasi.kelas.update', ['id_kelas' => $dataKelas->id_kelas]) }}">
             @csrf
             <div class="mb-3">
                 <label for="kelas" class="form-label">Kelas</label>

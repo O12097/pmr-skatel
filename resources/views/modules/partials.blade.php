@@ -616,7 +616,7 @@
             </div>
 
             <div
-                class="w-[278px] h-[813px] absolute left-1/2 transform -translate-x-1/2 top-[146px] bg-white rounded-[5px] shadow">
+                class="w-[278px] h-[800px] absolute left-1/2 transform -translate-x-1/2 top-[146px] bg-white rounded-[5px] shadow">
                 <ul class="mt-[10px]">
                     <li class="mb-3 active" id="dashboard">
                         <a href="/dashboard"

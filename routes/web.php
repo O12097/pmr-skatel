@@ -45,10 +45,10 @@ Route::get('/dashboard/pdf', [DashboardController::class, 'pdf'])->name('downloa
 // FOLDER DATA ANGGOTA
 Route::get('/anggota/data', [AnggotaController::class, 'data'])->name('anggota.data')->middleware('isLogin');
 Route::get('/anggota/data/{nis}/edit', [AnggotaController::class, 'edit'])->name('anggota.data.edit')->middleware('isLogin');
-Route::get('/anggota/data/{id}/detail', [AnggotaController::class, 'detail'])->name('anggota.data.detail')->middleware('isLogin');
-Route::get('/anggota/data/{nis}/edit', [AnggotaController::class, 'edit'])->name('anggota.data.edit')->middleware('isLogin');
+Route::get('/anggota/data/{nis}/detail', [AnggotaController::class, 'detailData'])->name('anggota.data.detail')->middleware('isLogin');
 Route::put('/anggota/data/{nis}/update', [AnggotaController::class, 'update'])->name('anggota.data.update');
 Route::delete('/anggota/data/{nis}/delete', [AnggotaController::class, 'delete'])->name('anggota.data.delete')->middleware('isLogin');
+Route::post('/anggota/data/delete-multiple', [AnggotaController::class, 'deleteMultiple'])->name('anggota.data.deleteMultiple');
 
 
 // FOLDER PENDAFTAR
@@ -80,7 +80,7 @@ Route::get('/kegiatan/dokumentasi/create', [KegiatanController::class, 'createFo
 Route::post('/kegiatan/dokumentasi/create', [KegiatanController::class, 'create'])->name('kegiatan.dokumentasi.create')->middleware('isLogin');
 Route::get('/kegiatan/dokumentasi/{id}', [KegiatanController::class, 'detail'])->name('kegiatan.dokumentasi.detail')->middleware('isLogin');
 Route::get('/kegiatan/dokumentasi/{id}/edit', [KegiatanController::class, 'editForm'])->name('kegiatan.dokumentasi.editForm')->middleware('isLogin');
-Route::put('/kegiatan/dokumentasi/{id}/edit', [KegiatanController::class, 'edit'])->name('kegiatan.dokumentasi.edit')->middleware('isLogin');
+Route::put('/kegiatan/dokumentasi/{id}/edit-proses', [KegiatanController::class, 'edit'])->name('kegiatan.dokumentasi.edit')->middleware('isLogin');
 Route::get('/kegiatan/dokumentasi/{id}/delete', [KegiatanController::class, 'delete'])->name('kegiatan.dokumentasi.destroy')->middleware('isLogin');
 Route::delete('/kegiatan/dokumentasi/{id}', [KegiatanController::class, 'delete'])->name('kegiatan.dokumentasi.delete')->middleware('isLogin');
 // ...
@@ -100,12 +100,12 @@ Route::get('/konfigurasi/kelas', [KonfigurasiController::class, 'kelas'])->name(
 Route::get('/konfigurasi/jurusan/form', [KonfigurasiController::class, 'formJurusan'])->name('konfigurasi.jurusan.form')->middleware('isLogin');
 Route::post('/konfigurasi/jurusan/create', [KonfigurasiController::class, 'createJurusan'])->name('konfigurasi.jurusan.create')->middleware('isLogin');
 Route::post('/konfigurasi/jurusan/update/{id}', [KonfigurasiController::class, 'updateJurusan'])->name('konfigurasi.jurusan.update')->middleware('isLogin');
-Route::get('/konfigurasi/jurusan/edit/{id}', [KonfigurasiController::class, 'editJurusan'])->name('konfigurasi.jurusan.edit')->middleware('isLogin');
+Route::get('/konfigurasi/jurusan/edit/{id_jurusan}', [KonfigurasiController::class, 'editJurusan'])->name('konfigurasi.jurusan.edit')->middleware('isLogin');
 // ...
 Route::get('/konfigurasi/kelas/form', [KonfigurasiController::class, 'formKelas'])->name('konfigurasi.kelas.form')->middleware('isLogin');
 Route::post('/konfigurasi/kelas/create', [KonfigurasiController::class, 'createKelas'])->name('konfigurasi.kelas.create')->middleware('isLogin');
-Route::post('/konfigurasi/kelas/update/{id}', [KonfigurasiController::class, 'updateKelas'])->name('konfigurasi.kelas.update')->middleware('isLogin');
-Route::get('/konfigurasi/kelas/edit/{id}', [KonfigurasiController::class, 'editKelas'])->name('konfigurasi.kelas.edit')->middleware('isLogin');
+Route::post('/konfigurasi/kelas/update/{id_kelas}', [KonfigurasiController::class, 'updateKelas'])->name('konfigurasi.kelas.update')->middleware('isLogin');
+Route::get('/konfigurasi/kelas/edit/{id_kelas}', [KonfigurasiController::class, 'editKelas'])->name('konfigurasi.kelas.edit')->middleware('isLogin');
 
 
 // FOLDER KELOLA_AKUN

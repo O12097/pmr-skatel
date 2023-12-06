@@ -45,7 +45,7 @@
     <div class="flex">
         <!-- Left Section - Card View -->
         <div class="w-3/5 p-4 text-xl">
-            <a href="{{ route('kegiatan.dokumentasi.createForm') }}" class="btn btn-primary">Tambah Kegiatan</a>
+            <a href="{{ route('kegiatan.dokumentasi.createForm') }}" class="inline-flex justify-end items-end px-10 py-1.5 text-md font-medium bg-red-600 text-white rounded-lg focus:outline-none hover:bg-red-700 focus:ring-4 focus:ring-gray-200 ms-2 mb-10">Tambah Kegiatan</a>
 
             @isset($dataKegiatan)
                 <div class="grid grid-cols-1 gap-4">

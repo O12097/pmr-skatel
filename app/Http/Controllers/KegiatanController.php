@@ -8,9 +8,14 @@ use App\Models\Kegiatan;
 
 class KegiatanController extends Controller
 {
-    public function dokumentasi()
+    public function dokumentasi(Request $request)
     {
         $dataKegiatan = Kegiatan::all();
+        $isApiRequest = $request->is('api/*'); // Pemeriksaan berdasarkan URI
+
+        if ($isApiRequest) {
+            return response()->json($dataKegiatan);
+        }
         return view('modules.kegiatan.dokumentasi.dokumentasi', compact('dataKegiatan'));
     }
 
@@ -21,6 +26,7 @@ class KegiatanController extends Controller
 
     public function create(Request $request)
     {
+        $isApiRequest = $request->is('api/*'); // Pemeriksaan berdasarkan URI
         $request->validate([
             'nama_kegiatan' => 'required|max:100',
             'tautan_dokumentasi' => 'required|url',
@@ -29,14 +35,28 @@ class KegiatanController extends Controller
 
         ]);
 
-        Kegiatan::create([
-            'nama_kegiatan' => $request->nama_kegiatan,
-            'tautan_dokumentasi' => $request->tautan_dokumentasi,
-            'deskripsi' => $request->deskripsi,
-            'tanggal' => $request->tanggal,
-        ]);
+        if ($isApiRequest) {
+            // Jika permintaan berasal dari API, tampilkan pesan JSON
+            $kegiatan = Kegiatan::findorfail($request->id);
+            $kegiatan->nama_kegiatan = $request->nama_kegiatan;
+            $kegiatan->tautan_dokumentasi = $request->tautan_dokumentasi;
+            $kegiatan->deskripsi = $request->deskripsi;
+            $kegiatan->tanggal = $request->tanggal;
 
-        return redirect()->route('kegiatan.dokumentasi')->with('successKegiatan', 'Kegiatan berhasil ditambahkan');
+            $kegiatan->update();
+            return response()->json(['message' => 'Data kegiatan berhasil diubah']);
+        } else {
+
+
+            Kegiatan::create([
+                'nama_kegiatan' => $request->nama_kegiatan,
+                'tautan_dokumentasi' => $request->tautan_dokumentasi,
+                'deskripsi' => $request->deskripsi,
+                'tanggal' => $request->tanggal,
+            ]);
+
+            return redirect()->route('kegiatan.dokumentasi')->with('successKegiatan', 'Kegiatan berhasil ditambahkan');
+        }
     }
 
     public function detail($id)
@@ -53,6 +73,8 @@ class KegiatanController extends Controller
 
     public function edit(Request $request, $id)
     {
+
+        $isApiRequest = $request->is('api/*'); // Pemeriksaan berdasarkan URI
         $request->validate([
             'nama_kegiatan' => 'required|max:100',
             'tautan_dokumentasi' => 'required|url',
@@ -62,26 +84,39 @@ class KegiatanController extends Controller
 
         $kegiatan = Kegiatan::findOrFail($id);
 
-        // check apa ada perubahan
-        $isChanged = $kegiatan->nama_kegiatan != $request->nama_kegiatan ||
-            $kegiatan->tautan_dokumentasi != $request->tautan_dokumentasi ||
-            $kegiatan->deskripsi != $request->deskripsi ||
-            $kegiatan->tanggal != $request->tanggal;
+        if ($isApiRequest) {
+            $newKegiatan = new Kegiatan();
+            $newKegiatan->nama_kegiatan = $request->nama_kegiatan;
+            $newKegiatan->tautan_dokumentasi = $request->tautan_dokumentasi;
+            $newKegiatan->deskripsi = $request->deskripsi;
+            $newKegiatan->tanggal = $request->tanggal;
 
-        $kegiatan->update([
-            'nama_kegiatan' => $request->nama_kegiatan,
-            'tautan_dokumentasi' => $request->tautan_dokumentasi,
-            'deskripsi' => $request->deskripsi,
-            'tanggal' => $request->tanggal,
-        ]);
+            $newKegiatan->update();
 
-        // kalau ada, update updated_at
-        if ($isChanged) {
-            $kegiatan->touch();
+            return response()->json('Data kegiatan berhasil dibuat');
+            
+        } else {
+            // check apa ada perubahan
+            $isChanged = $kegiatan->nama_kegiatan != $request->nama_kegiatan ||
+                $kegiatan->tautan_dokumentasi != $request->tautan_dokumentasi ||
+                $kegiatan->deskripsi != $request->deskripsi ||
+                $kegiatan->tanggal != $request->tanggal;
+
+            $kegiatan->update([
+                'nama_kegiatan' => $request->nama_kegiatan,
+                'tautan_dokumentasi' => $request->tautan_dokumentasi,
+                'deskripsi' => $request->deskripsi,
+                'tanggal' => $request->tanggal,
+            ]);
+
+            // kalau ada, update updated_at
+            if ($isChanged) {
+                $kegiatan->touch();
+            }
+
+            return redirect()->route('kegiatan.dokumentasi')->with('successUpdateKegiatan', 'Kegiatan berhasil diperbarui');
         }
-
-        return redirect()->route('kegiatan.dokumentasi')->with('successUpdateKegiatan', 'Kegiatan berhasil diperbarui');
-    }
+    }   
 
 
     public function delete($id)
@@ -96,7 +131,7 @@ class KegiatanController extends Controller
     {
         $kegiatans = Kegiatan::all();
         $events = [];
-    
+
         foreach ($kegiatans as $kegiatan) {
             $events[] = [
                 'title' => $kegiatan->nama_kegiatan, // Include nama_kegiatan in the title
@@ -104,7 +139,7 @@ class KegiatanController extends Controller
                 'url' => route('kegiatan.dokumentasi.detail', ['id' => $kegiatan->id_kegiatan]),
             ];
         }
-    
+
         return response()->json($events);
     }
-    }
+}

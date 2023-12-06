@@ -360,7 +360,7 @@
     {{-- END LEFT SECTION --}}
 
     </div>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 201" fill="none">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 201" fill="none" >
         <path
             d="M-18.3818 25.052C568.009 134.659 999.881 117.078 1440 25.052V201H-18.3818C-18.3818 201 -604.773 -84.5549 -18.3818 25.052Z"
             fill="#b91c1c" />

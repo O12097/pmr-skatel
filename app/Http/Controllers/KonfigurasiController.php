@@ -29,17 +29,18 @@ class KonfigurasiController extends Controller
         return view('modules.konfigurasi.kelas.form');
     }
 
-    public function editJurusan($id)
+    public function editJurusan($id_jurusan)
     {
-        $dataJurusan = Jurusan::find($id);
+        $dataJurusan = Jurusan::find($id_jurusan);
         return view('modules.konfigurasi.jurusan.edit', ['dataJurusan' => $dataJurusan]);
     }
 
-    public function editKelas($id)
+    public function editKelas($id_kelas)
     {
-        $dataKelas = Kelas::find($id);
+        $dataKelas = Kelas::find($id_kelas);
         return view('modules.konfigurasi.kelas.edit', ['dataKelas' => $dataKelas]);
     }
+
 
 
 
@@ -57,7 +58,7 @@ class KonfigurasiController extends Controller
             'jurusan' => $request->jurusan,
             'status' => $request->status,
         ]);
-        
+
         // dd($query->toSql(), $query->getBindings());
 
         return redirect()->route('konfigurasi.jurusan')->with('successJurusan', 'Data jurusan berhasil ditambahkan');
@@ -99,14 +100,16 @@ class KonfigurasiController extends Controller
     }
 
     // Update Kelas
-    public function updateKelas(Request $request, $id)
+    public function updateKelas(Request $request, $id_kelas)
     {
+        // validasi inputan
         $request->validate([
-            'kelas' => ['required', 'string', 'max:5', Rule::unique('kelas', 'kelas')->ignore($id, 'id_kelas')],
+            'kelas' => ['required', 'string', 'max:5', Rule::unique('kelas', 'kelas')->ignore($id_kelas, 'id_kelas')],
             'status' => 'required|in:on,off',
         ]);
 
-        Kelas::where('id_kelas', $id)->update([
+        // update data ke db
+        Kelas::where('id_kelas', $id_kelas)->update([
             'kelas' => $request->kelas,
             'status' => $request->status,
         ]);

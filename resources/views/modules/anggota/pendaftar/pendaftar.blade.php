@@ -3,7 +3,6 @@
 
 @section('title', 'Pendaftar')
 
-
 <style>
     .centered-text {
         position: absolute;
@@ -38,7 +37,7 @@
             </script>
         @endif
 
-        <div class="relative  sm:rounded-lg">
+        <div class="relative bg-white rounded-lg shadow sm:rounded-lg px-14 py-6">
             <div class="action-icons">
                 <button id="delete-button"
                     class="inline-flex justify-end items-end px-10 py-1.5 text-md font-medium bg-red-600 text-white rounded-lg focus:outline-none hover:bg-red-700 focus:ring-4 focus:ring-gray-200 ms-2">
@@ -108,7 +107,7 @@
                         </svg>
                     </div>
                     <input type="text" id="table-search"
-                        class="block p-2 h-12 ps-10 text-md text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-gray-500 focus:border-gray-500 "
+                        class="block p-2 h-12 ps-10 text-md text-gray-900 border border-gray-300 rounded-lg w-80 bg-white focus:ring-gray-500 focus:border-gray-500 "
                         placeholder="Cari data">
                 </div>
             </div>
@@ -135,86 +134,90 @@
                 </thead>
                 <tbody id="table-body" class="text-center">
                     @foreach ($dataPendaftar as $index => $item)
-                        <tr class="bg-gray-100 odd:bg-white hover:bg-gray-100" data-status="{{ $item->status }}">
-                            <div onclick="window.location='{{ route('anggota.pendaftar.detail', ['id' => $item->id_pendaftar]) }}';"
-                                style="cursor: pointer;">
-                                <td class="w-4 p-4 px-6 py-6">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-table-search-1" type="checkbox"
-                                            class="w-4 h-4 accent-gray-500 text-gray-600 bg-gray-100 border-gray-300 rounded  ">
-                                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-2 rounded-bl border-r">{{ $index + 1 }}</td>
-                                <td class="px-6 py-2 rounded-bl border-r">{{ $item->nis }}</td>
-                                <td scope="row"
-                                    class="px-6 py-2 rounded-bl border-r font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $item->nama_siswa }}</td>
-                                <td class="px-6 py-2 rounded-bl border-r">{{ $item->kelas->kelas }}</td>
-                                <td class="px-6 py-2 rounded-bl border-r">{{ $item->jurusan->jurusan }}</td>
-                                <td class="px-6 py-2 rounded-bl border-r">{{ $item->email }}</td>
-                                <td class="px-6 py-2 rounded-bl border-r">{{ $item->no_telp }}</td>
-                            </div>
-                            <td class="flex items-center text-center px-6 py-4 rounded-br">
+                        <tr class="bg-gray-100 odd:bg-white hover:bg-gray-100 cursor-pointer"
+                            data-status="{{ $item->status }}" data-id-pendaftar="{{ $item->id_pendaftar }}"
+                            onclick="handleRowClick(event, '{{ route('anggota.pendaftar.detail', ['id' => $item->id_pendaftar]) }}');">
+                            <td class="w-4 p-4 px-6 py-6 border-r rounded-bl">
+                                <div class="flex items-center">
+                                    <input id="checkbox-table-search-1" type="checkbox"
+                                        class="w-4 h-4 accent-gray-500 text-gray-600 bg-gray-100 border-gray-300 rounded no-click">
+                                    <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
+                            <td class="px-6 py-2 rounded-bl border-r cursor-pointer"
+                                onclick="handleCellClick(event, '{{ route('anggota.pendaftar.detail', ['id' => $item->id_pendaftar]) }}');">
+                                {{ $index + 1 }}</td>
+                            <td class="px-6 py-2 rounded-bl border-r cursor-pointer"
+                                onclick="handleCellClick(event, '{{ route('anggota.pendaftar.detail', ['id' => $item->id_pendaftar]) }}');">
+                                {{ $item->nis }}</td>
+                            <td scope="row"
+                                class="px-6 py-2 rounded-bl border-r cursor-pointer font-medium text-gray-900 whitespace-nowrap"
+                                onclick="handleCellClick(event, '{{ route('anggota.pendaftar.detail', ['id' => $item->id_pendaftar]) }}');">
+                                {{ $item->nama_siswa }}</td>
+                            <td class="px-6 py-2 rounded-bl border-r cursor-pointer"
+                                onclick="handleCellClick(event, '{{ route('anggota.pendaftar.detail', ['id' => $item->id_pendaftar]) }}');">
+                                {{ $item->kelas->kelas }}</td>
+                            <td class="px-6 py-2 rounded-bl border-r cursor-pointer"
+                                onclick="handleCellClick(event, '{{ route('anggota.pendaftar.detail', ['id' => $item->id_pendaftar]) }}');">
+                                {{ $item->jurusan->jurusan }}</td>
+                            <td class="px-6 py-2 rounded-bl border-r cursor-pointer"
+                                onclick="handleCellClick(event, '{{ route('anggota.pendaftar.detail', ['id' => $item->id_pendaftar]) }}');">
+                                {{ $item->email }}</td>
+                            <td class="px-6 py-2 rounded-bl border-r cursor-pointer"
+                                onclick="handleCellClick(event, '{{ route('anggota.pendaftar.detail', ['id' => $item->id_pendaftar]) }}');">
+                                {{ $item->no_telp }}</td>
+                            <td class="flex items-center text-center px-6 py-4 rounded-br no-click">
                                 @if ($item->status == 'pending')
-                                    <a href="javascript:void(0);" title="Terima"
-                                        onclick="handleStatus('{{ route('anggota.pendaftar.updateStatus', ['id' => $item->id_pendaftar]) }}', 'terima')"
-                                        class="font-medium text-neutral-600  hover:underline">Terima
-                                    </a>
-                                    <a href="javascript:void(0);" title="Tidak Terima"
-                                        onclick="handleStatus('{{ route('anggota.pendaftar.updateStatus', ['id' => $item->id_pendaftar]) }}', 'tidak')"
-                                        class="font-medium text-red-600  hover:underline ms-3">Tolak
-                                    </a>
+                                <p class="flex-grow no-click">Belum terdaftar</p>
                                 @endif
                                 @if ($item->status == 'terima')
-                                    <p class="flex-grow">Diterima</p>
+                                    <p class="flex-grow no-click">Diterima</p>
                                 @endif
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
-                <p id="data-not-found" class="px-6 py-6 text-center" style="display: none;">Data tidak ditemukan</p>
         </div>
+        </table>
+        <p id="data-not-found" class="px-6 py-6 text-center" style="display: none;">Data tidak ditemukan</p>
+
+        {{-- PAGINATION --}}
+        <nav id="pagination" class="flex items-center flex-column flex-wrap md:flex-row justify-end pt-8"
+            aria-label="Table navigation">
+            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-12">
+                <li>
+                    <button id="prevPage"
+                        class="flex items-center justify-center px-4 h-12 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ">Sebelumnya</button>
+                </li>
+                <li>
+                    <a href="#" id="page-1"
+                        class="flex items-center justify-center px-4 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">1</a>
+                </li>
+                <li>
+                    <a href="#" id="page-2"
+                        class="flex items-center justify-center px-4 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">2</a>
+                </li>
+                <li>
+                    <a href="#" id="page-3"
+                        class="flex items-center justify-center px-4 w-12 h-12 text-gray-600 border border-gray-300 bg-gray-50 hover:bg-gray-100 hover:text-gray-700">3</a>
+                </li>
+                <li>
+                    <a href="#" id="page-4"
+                        class="flex items-center justify-center px-4 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">4</a>
+                </li>
+                <li>
+                    <a href="#" id="page-5"
+                        class="flex items-center justify-center px-4 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">5</a>
+                </li>
+                <li>
+                    <button id="nextPage"
+                        class="flex items-center justify-center px-4 h-12 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ">Selanjutnya</button>
+                </li>
+            </ul>
+        </nav>
     @else
         <p>Data tidak ditemukan</p>
     @endisset
-
-    </table>
-    <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-8" aria-label="Table navigation">
-        <span class="text-md font-normal text-gray-500 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing
-            <span class="font-semibold text-gray-900 text-sm ">1-10</span> of <span
-                class="font-semibold text-gray-900 text-md">1000</span></span>
-        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-12">
-            <li>
-                <a href="#"
-                    class="flex items-center justify-center px-4 h-12 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ">Sebelumnya</a>
-            </li>
-            <li>
-                <a href="#"
-                    class="flex items-center justify-center px-4 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">1</a>
-            </li>
-            <li>
-                <a href="#"
-                    class="flex items-center justify-center px-4 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">2</a>
-            </li>
-            <li>
-                <a href="#" aria-current="page"
-                    class="flex items-center justify-center px-4 w-12 h-12 text-gray-600 border border-gray-300 bg-gray-50 hover:bg-gray-100 hover:text-gray-700">3</a>
-            </li>
-            <li>
-                <a href="#"
-                    class="flex items-center justify-center px-4 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">4</a>
-            </li>
-            <li>
-                <a href="#"
-                    class="flex items-center justify-center px-4 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">5</a>
-            </li>
-            <li>
-                <a href="#"
-                    class="flex items-center justify-center px-4 h-12 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ">Selanjutnya</a>
-            </li>
-        </ul>
-    </nav>
 
     <script>
         function handleStatus(url, action) {
@@ -412,10 +415,10 @@
                 if (confirm(confirmationMessage)) {
                     // Ambil ID pendaftar yang akan dihapus
                     const idsToDelete = Array.from(checkedCheckboxes).map(checkbox => {
-                        return checkbox.closest('tr').dataset.pendaftarId;
+                        // Gunakan dataset.idPendaftar daripada dataset.pendaftarId
+                        return checkbox.closest('tr').dataset.idPendaftar;
                     });
-
-                    fetch('/anggota/pendaftar/delete', {
+                    fetch('/anggota/pendaftar/delete-pendaftar', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -425,8 +428,10 @@
                                 ids: idsToDelete
                             }),
                         })
-                        .then(response => {
-                            if (response.ok) {
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data); // Log the response for debugging
+                            if (data.message === 'Data berhasil dihapus') {
                                 // Hapus baris dari tabel setelah penghapusan berhasil
                                 idsToDelete.forEach(id => {
                                     const rowToDelete = document.querySelector(`tr[data-pendaftar-id="${id}"]`);
@@ -436,13 +441,13 @@
                                 });
 
                                 // Reset checkbox "Select All"
-                                checkboxAll.checked = false;
+                                document.getElementById('checkbox-all-search').checked = false;
 
                                 // Perbarui tampilan tombol delete
                                 updateDeleteButtonVisibility();
                             } else {
-                                // Handle kesalahan jika diperlukan
-                                console.error('Error deleting data:', response.statusText);
+                                // Handle other responses or errors
+                                console.error('Error deleting data:', data.message);
                             }
                         })
                         .catch(error => {
@@ -453,5 +458,252 @@
         }
     </script>
     {{-- end checkbox delete --}}
+
+
+   
+
+
+    {{-- pagination --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableBody = document.getElementById('table-body');
+            const dataNotFound = document.getElementById('data-not-found');
+            const pageSize = 10; // Jumlah data per halaman
+            let currentPage = 1; // Halaman saat ini
+
+            // Function untuk menampilkan data pada halaman tertentu
+            function showDataOnPage(page) {
+                const startIdx = (page - 1) * pageSize;
+                const endIdx = startIdx + pageSize;
+                const rows = tableBody.querySelectorAll('tr');
+
+                rows.forEach((row, index) => {
+                    if (index >= startIdx && index < endIdx) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Perbarui tampilan tombol pagination
+                updatePaginationButtons();
+            }
+
+            // Function untuk memperbarui tampilan tombol pagination
+            function updatePaginationButtons() {
+                const pagination = document.getElementById('pagination');
+                const prevPageButton = document.getElementById('prevPage');
+                const nextPageButton = document.getElementById('nextPage');
+
+                // Sembunyikan atau tampilkan tombol Sebelumnya berdasarkan halaman saat ini
+                prevPageButton.style.display = currentPage > 1 ? 'inline-flex' : 'none';
+
+                // Hitung jumlah halaman
+                const totalRows = tableBody.querySelectorAll('tr').length;
+                const totalPages = Math.ceil(totalRows / pageSize);
+
+                // Buat tombol pagination sesuai dengan jumlah halaman
+                const paginationButtons = [];
+                for (let i = 1; i <= totalPages; i++) {
+                    paginationButtons.push(
+                        `<li><a href="#" class="flex items-center justify-center px-4 w-12 h-12 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 " id="page-${i}">${i}</a></li>`
+                    );
+                }
+
+                pagination.innerHTML = `
+            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-12">
+                <li>
+                    <button id="prevPage" class="flex items-center justify-center px-4 h-12 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ">Sebelumnya</button>
+                </li>
+                ${paginationButtons.join('')}
+                <li>
+                    <button id="nextPage" class="flex items-center justify-center px-4 h-12 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ">Selanjutnya</button>
+                </li>
+            </ul>`;
+
+                // Tambahkan event listener ke tombol-tombol pagination
+                const pageButtons = pagination.querySelectorAll('[id^="page-"]');
+                pageButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        currentPage = parseInt(this.innerText);
+                        showDataOnPage(currentPage);
+                    });
+                });
+
+                // Tambahkan event listener ke tombol Sebelumnya dan Selanjutnya
+                document.getElementById('prevPage').addEventListener('click', function() {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        showDataOnPage(currentPage);
+                    }
+                });
+
+                // Tambahkan event listener ke tombol Selanjutnya
+                document.getElementById('nextPage').addEventListener('click', function() {
+                    const nextPage = currentPage + 1;
+                    const totalPages = Math.ceil(tableBody.querySelectorAll('tr').length / pageSize);
+                    if (nextPage <= totalPages) {
+                        currentPage = nextPage;
+                        showDataOnPage(currentPage);
+                    }
+                });
+            }
+
+            // Panggil function untuk menampilkan data pada halaman pertama
+            showDataOnPage(currentPage);
+
+            // Event listener untuk tombol-tombol pagination
+            updatePaginationButtons();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButton = document.getElementById('delete-button');
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+            // Add event listener to the delete button
+            deleteButton.addEventListener('click', confirmDelete);
+
+            // Function to handle the delete confirmation
+            function confirmDelete() {
+                const checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+                if (checkedCheckboxes.length > 0) {
+                    const itemCount = checkedCheckboxes.length;
+                    const confirmationMessage = `Apakah Anda yakin ingin menghapus ${itemCount} data?`;
+
+                    if (confirm(confirmationMessage)) {
+                        const idsToDelete = Array.from(checkedCheckboxes).map(checkbox => {
+                            return checkbox.closest('tr').dataset.idPendaftar;
+                        });
+
+                        // Tampilkan pesan "Hapus data..." atau indikator loading di sini
+
+                        // Panggil fungsi untuk menghapus data
+                        deleteData(idsToDelete);
+                    }
+                }
+            }
+
+            // Fungsi untuk menghapus data dari server
+            function deleteData(idsToDelete) {
+                // Tampilkan pesan "Hapus data..." atau indikator loading di sini
+
+                // Kirim permintaan ke endpoint deleteMultiple di server
+                fetch('/anggota/pendaftar/delete-multiple', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: JSON.stringify({
+                            ids: idsToDelete
+                        }),
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Hapus baris dari tabel setelah penghapusan berhasil
+                            idsToDelete.forEach(id => {
+                                const rowToDelete = document.querySelector(
+                                    `tr[data-id-pendaftar="${id}"]`);
+                                if (rowToDelete) {
+                                    rowToDelete.remove();
+                                }
+                            });
+
+                            // Reset checkbox "Select All"
+                            document.getElementById('checkbox-all-search').checked = false;
+
+                            // Perbarui tampilan tombol delete
+                            updateDeleteButtonVisibility();
+                        } else {
+                            // Handle kesalahan jika diperlukan
+                            console.error('Error deleting data:', response.statusText);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting data:', error.message);
+                    })
+                    .finally(() => {
+                        // Sembunyikan pesan "Hapus data..." atau indikator loading di sini
+                    });
+
+            }
+
+
+            // Function untuk memperbarui tampilan tombol delete
+            function updateDeleteButtonVisibility() {
+                const checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                const deleteButton = document.getElementById('delete-button');
+
+                if (checkedCheckboxes.length > 0) {
+                    deleteButton.style.display = 'inline-flex';
+                } else {
+                    deleteButton.style.display = 'none';
+                }
+            }
+
+            // Add event listener to each checkbox in the table body
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', function() {
+                    // Update the visibility of the delete button
+                    updateDeleteButtonVisibility();
+
+                    // Update the state of the "Select All" checkbox
+                    document.getElementById('checkbox-all-search').checked = [...checkboxes].every((
+                        cb) => cb.checked);
+                });
+            });
+        });
+    </script>
+ <script>
+    function handleRowClick(event, url) {
+        // Check if the clicked element is not a td with class 'no-click'
+        if (!event.target.classList.contains('no-click')) {
+            window.location = url;
+        }
+    }
+
+    function handleCellClick(event, url) {
+        window.location = url;
+    }
+</script>
+<script>
+    function handleStatus(url, action) {
+        if (confirm('Apakah Anda yakin ingin mengubah status?')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = url;
+
+            const statusInput = document.createElement('input');
+            statusInput.type = 'hidden';
+            statusInput.name = 'status';
+            statusInput.value = (action === 'terima') ? 'terima' : 'tidak';
+            form.appendChild(statusInput);
+
+            // tambahkan token CSRF ke formulir
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = '{{ csrf_token() }}'; // ambil token CSRF dari Blade
+            form.appendChild(csrfInput);
+
+            // tambahkan formulir ke body dan kirim
+            document.body.appendChild(form);
+            form.submit();
+
+            // Update the row status in the table
+            const row = form.closest('tr');
+            if (row) {
+                const statusColumn = row.querySelector('td:last-child p');
+                if (statusColumn) {
+                    statusColumn.innerText = (action === 'terima') ? 'Diterima' : 'Tidak Diterima';
+                }
+            }
+        }
+    }
+</script>
+
+
 
 @endsection
