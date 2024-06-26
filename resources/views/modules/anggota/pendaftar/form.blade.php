@@ -48,7 +48,7 @@
             </script>
         @endif
 
-        <div
+        {{-- <div
             class="w-[123px] h-[38px] left-[455px] top-[107px] absolute justify-start items-center gap-[9px] inline-flex z-40">
             <div class="text-neutral-700 text-[20px] font-normal font-['Inria Sans'] leading-[38.01px]">
                 <a href="/">
@@ -58,10 +58,38 @@
             <iconify-icon icon="material-symbols:arrow-forward-ios-rounded"
                 class="w-[15px] h-[15px] pl-[2.82px] pr-[2.67px] pt-px pb-[1.05px] justify-center items-center flex"></iconify-icon>
             <div class="text-red-700 text-[20px] font-bold font-['Inria Sans'] leading-[38.01px]">Daftar</div>
-        </div>
+        </div> --}}
+        
+        <nav class="w-[123px] h-[38px] left-[450px] top-[123px] absolute justify-start items-center z-40"
+        aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+            <li class="inline-flex items-center">
+                <a href="/"
+                    class="inline-flex items-center text-md font-medium text-red-700 hover:text-red-800 ">
+                    <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                    </svg>
+                    Beranda
+                </a>
+            </li>
+
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg class="rtl:rotate-180  w-3 h-3 mx-1 text-gray-400" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                    <span class="ms-1 text-md font-medium text-gray-500 md:ms-2 ">Pendaftaran</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
 
         <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div class="w-[1020px] h-[761px] mt-[-100px]">
+            <div class="w-[1020px] h-[761px] mt-[-120px]">
                 <div class="w-[1020px] h-[761px] left-0 top-0 absolute bg-white rounded-[5px] shadow"></div>
                 <form method="POST" action="{{ route('anggota.pendaftaran.submit') }}">
                     @csrf

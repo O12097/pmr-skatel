@@ -50,10 +50,11 @@
             @isset($dataKegiatan)
                 <div class="grid grid-cols-1 gap-4">
                     @foreach ($dataKegiatan as $item)
-                        <div class="border p-5 rounded relative flex justify-between items-center">
+                        <div class="border p-5 rounded relative flex justify-between items-center shadow">
                             <a href="{{ route('kegiatan.dokumentasi.detail', ['id' => $item->id_kegiatan]) }}" class="w-full">
                                 <p class="text-2xl font-bold">{{ $item->nama_kegiatan }}</p>
                                 <p class="text-xl">{{ $item->deskripsi }}</p>
+                                <p class="text-sm">Dokumentasi : <span class="italic underline text-red-600">{{ $item->tautan_dokumentasi }}</span></p>
                                 <p class="text-sm text-gray-500">
                                     @if ($item->created_at != $item->updated_at)
                                         Dimodifikasi pada {{ $item->updated_at->format('d M Y H:i:s') }}
@@ -81,7 +82,7 @@
         </div>
         <!-- Right Section - Calendar -->
         <div class="w-2/5 p-4">
-            <h3 class="text-xl mb-4">Calendar</h3>
+            <h3 class="text-2xl mb-4 font-bold">Kalender Kegiatan</h3>
             <!-- FullCalendar Container -->
             <div id="calendar"></div>
 
@@ -114,8 +115,7 @@
                         },
                         eventRender: function(event, element) {
                             // Customize the rendering of each event
-                            element.find('.fc-title').html('<a href="' + event.url + '">' + event.title +
-                                '</a>');
+                            element.find('.fc-title').html('<a href="' + event.url + '" style="background-color: #CC0606; color: white; padding: 2px; border-radius: 3px;">' + event.title + '</a>');
                         }
                     });
                 });

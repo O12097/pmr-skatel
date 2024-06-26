@@ -122,7 +122,7 @@
                 function leave() {
                     alertElem.removeClass("open");
                     alertElem.one(
-                        "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
+                        "webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionEnd",
                         function() {
                             return alertElem.remove();
                         }

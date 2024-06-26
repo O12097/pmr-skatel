@@ -34,7 +34,6 @@ class DashboardController extends Controller
         $pendingJoinRequests = Pendaftar::where('status', 'pending')->count();
         $totalMembers = Siswa::count();
 
-        // Assuming you have a date field in your Presensi model, adjust as needed
         $currentMonth = now()->format('m');
         $currentYear = now()->format('Y');
 
